@@ -113,8 +113,8 @@ Drag Clawd to the left or right screen edge, or enter from the menu.
 | Walking to the screen edge | <img src="assets/mini-crabwalk.svg" width="160"> | **Sneak** |
 | Entering mini mode | <img src="assets/mini-enter.apng" width="160"> | **Hide** |
 | No activity | <img src="assets/mini-idle.svg" width="160"> | **Lookout** |
-| Mouse moves onto Clawd | <img src="assets/mini-peek.apng" width="160"> | **Caught** |
-| Mouse stays | <img src="assets/mini-peek-hold.apng" width="160"> | **Play It Cool** |
+| Mouse moves onto Clawd | <img src="assets/mini-peek.apng" width="160"> | **Spotted** |
+| Mouse stays | <img src="assets/mini-peek-hold.apng" width="160"> | **Hehe** |
 | Thinking, using tools or running subagents | <img src="assets/mini-working.apng" width="160"> | **Working in Secret** |
 | Permission request or alert | <img src="assets/mini-alert.apng" width="160"> | **Someone's Asking** |
 | Task completed | <img src="assets/mini-happy.apng" width="160"> | **Secret Win** |

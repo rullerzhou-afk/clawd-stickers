@@ -38,27 +38,28 @@ def clawd(mode='n',dx=0,ey=0,blink=False,left=DOWN):   # the defaults are the Lo
     p=base(); face(p,mode,dx,ey,blink); arms(p,left,DOWN); return p
 def disc(cx_,cy_,r,c):
     return {(x,y):c for x in range(cx_-r,cx_+r+1) for y in range(cy_-r,cy_+r+1) if (x-cx_)**2+(y-cy_)**2<=r*r+r/2}
-def drop(x,y): return {(x,y):SWEAT,(x,y+1):SWEAT}
 
 # ---------- 望风 · Lookout (mini-idle) ----------
-# Eye tracking moves #eyes-js and #body-js, so watching the mouse reads as watching for the boss. Every so often
-# Clawd ducks behind the wall and comes back. Breathes on the same clock as the full-size idle.
+# Eye tracking moves #eyes-js and #body-js, so Clawd keeps an eye on the mouse. About every 30 seconds it has a
+# good stretch, arms up. Breathes on the same clock as the full-size idle.
 def mini_idle_svg(vb):
     r=svg_rect
-    return svg_doc(vb,LID+"""      .duck { animation: duck 26s infinite; }
+    return svg_doc(vb,LID+"""      .stretch { transform-origin: 7.5px 15px; animation: stretch 30s infinite; }
+      .arm { animation: arm 30s infinite step-end; }
       .breath { transform-origin: 7.5px 15px; animation: breath 2.7s infinite ease-in-out; }
       #eyes-js, #body-js { transition: transform 0.25s ease; }
-      @keyframes duck {
+      @keyframes stretch {
         0%, 88%, 100% { transform: none; animation-timing-function: ease-out; }
-        89%, 93% { transform: translateX(6px); animation-timing-function: ease-in-out; }
+        90%, 94% { transform: scaleY(1.08); animation-timing-function: ease-in-out; }
         96% { transform: none; }
       }
+      @keyframes arm { 0% { transform: none; } 89.5% { transform: translateY(-2px); } 95% { transform: none; } }
       @keyframes breath { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.965); } }
-""",f'''  <g class="duck">
-    <g fill="{BODY}">{svg_legs()}</g>
+""",f'''  <g fill="{BODY}">{svg_legs()}</g>
+  <g class="stretch">
     <g id="body-js">
       <g class="breath" fill="{BODY}">
-        {r(2,6,11,7)}{r(0,9,2,2)}{r(13,9,2,2)}
+        {r(2,6,11,7)}<g class="arm">{r(0,9,2,2)}{r(13,9,2,2)}</g>
         <g id="eyes-js" fill="{K}">{svg_eyes(4,10)}</g>
       </g>
     </g>
@@ -66,67 +67,65 @@ def mini_idle_svg(vb):
 ''')
 
 # ---------- 溜号 · Sneak (mini-crabwalk) ----------
-# Crouched and on tiptoe, glancing back the way it came. Walks right; clawd-on-desk mirrors it for the left edge.
+# Off to slack, happily: a bouncy trot with a grin, arms swinging and little puffs of dust behind. Runs right;
+# clawd-on-desk mirrors it for the left edge.
 def mini_crabwalk_svg(vb):
     r=svg_rect
-    return svg_doc(vb,"""      .crouch { transform: translateY(1px); }
-      .bob { animation: bob 0.28s infinite ease-in-out; }
-      .step-a, .step-b { animation: step 0.56s infinite step-end; }
-      .step-b { animation-delay: -0.28s; }
-      .ahead { animation: ahead 2.24s infinite step-end; }
-      .back { animation: back 2.24s infinite step-end; }
-      @keyframes bob { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(0, -0.5px); } }
+    grin=''.join(r(x,y,1,1) for ex in (5,11) for x,y in [(ex-1,9),(ex,8),(ex+1,9)])
+    return svg_doc(vb,"""      .bounce { animation: bounce 0.36s infinite; }
+      .step-a, .step-b { animation: step 0.72s infinite step-end; }
+      .step-b { animation-delay: -0.36s; }
+      .puff-a, .puff-b { animation: puff 0.72s infinite ease-out; }
+      .puff-b { animation-delay: -0.36s; }
+      @keyframes bounce {
+        0%, 100% { transform: none; animation-timing-function: ease-out; }
+        50% { transform: translate(0, -1px); animation-timing-function: ease-in; }
+      }
       @keyframes step { 0% { transform: translate(0, -1px); } 50% { transform: none; } }
-      @keyframes ahead { 0% { opacity: 1; } 50% { opacity: 0; } }
-      @keyframes back { 0% { opacity: 0; } 50% { opacity: 1; } }
-""",f'''  <g fill="{BODY}">
-    <g class="bob">
-      {svg_legs(('step-a','step-b','step-a','step-b'))}
-      <g class="crouch">
-        {r(2,6,11,7)}{r(0,7,2,2)}{r(13,7,2,2)}
-        <g fill="{K}"><g class="ahead">{r(5,8,1,2)}{r(11,8,1,2)}</g><g class="back">{r(3,8,1,2)}{r(9,8,1,2)}</g></g>
-      </g>
-    </g>
+      @keyframes puff { 0% { transform: none; opacity: 0.9; } 100% { transform: translate(-3px, -1px); opacity: 0; } }
+""",f'''  <g fill="{tc(DUST)}"><g class="puff-a">{r(1,14,1,1)}</g><g class="puff-b">{r(0,13,1,1)}</g></g>
+  <g class="bounce" fill="{BODY}">
+    {svg_legs(('step-a','step-b','step-a','step-b'))}
+    {r(2,6,11,7)}<g class="step-a">{r(0,9,2,2)}</g><g class="step-b">{r(13,9,2,2)}</g>
+    <g fill="{K}">{grin}</g>
   </g>
 ''')
 
 # ---------- 躲好 · Hide (mini-enter) ----------
 def mini_enter():
-    """Whooshes behind the wall, stays hidden for a beat, then creeps out in one unbroken move to the Lookout pose.
-    The hidden beat also covers the 300 ms clawd-on-desk spends moving the window after a walk from the menu."""
-    fr=[]; N=36
+    """Whooshes behind the wall, stays out of sight for a beat, then creeps out in one unbroken move and grins,
+    ending on the Lookout pose. The whoosh comes first because after a walk from the
+    menu clawd-on-desk keeps the window off screen for the first 300 ms."""
+    fr=[]; N=46
     for i in range(N):
-        sx=kf(i,[(0,0),(3,14),(12,14),(33,0)])
-        mode='x' if i<3 else 'n'
+        sx=kf(i,[(0,0),(3,14),(7,14),(8,8.5),(28,0)])
+        mode='x' if i<3 else 'hap' if 29<=i<43 else 'n'
         fx={}
         if i<4:   # dust left behind by the whoosh
             for k,(x,y) in enumerate([(-1,7),(-2,10),(0,12),(-3,13)]):
                 if k%2==i%2: fx[(x+i,y)]=DUST
-        fr.append((frame((clawd(mode,-1 if 12<=i<31 else 0,blink=i==27),sx),(fx,)),70))
+        fr.append((frame((clawd(mode,-1 if 8<=i<27 else 0,blink=i==23),sx),(fx,)),70))
     hold(fr,{-1:200})
     return fr
 
-# ---------- 被抓包 · Caught (mini-peek) ----------
-def caught_face(i=0):
-    """The awkward smile shared by the end of Caught and all of Play It Cool."""
-    return clawd('hap',left=UP if i else DOWN)
+# ---------- 被发现啦 · Spotted (mini-peek) ----------
 def mini_peek():
-    """Jumps in fright as the window slides out, a drop of sweat flying off, then lands on the awkward smile."""
+    """Spotted: a little shrug and a grin as the window slides out, then two waves hello."""
     fr=[]; N=20
     for i in range(N):
-        hop=2.4*math.sin(math.pi*clamp(i/6))
-        p=clawd('x',left=UP) if i<9 else caught_face()
-        fx=drop(-2-i//2,4+i//2) if i<8 else drop(1,5) if i>=11 else {}
-        fr.append((frame((p,0,-hop),(fx,)),60))
+        dip=0.6*math.sin(math.pi*clamp(i/4))
+        left=(UP if (i-4)//3%2==0 else MID) if 4<=i<16 else DOWN
+        fr.append((frame((clawd('hap' if i else 'n',left=left),0,dip)),60))
     return fr
 
-# ---------- 装没事 · Play It Cool (mini-peek-hold) ----------
+# ---------- 嘿嘿 · Hehe (mini-peek-hold) ----------
 def mini_peek_hold():
-    """Waves as if nothing happened, for as long as the mouse stays. The sweat runs down and starts over."""
-    fr=[]; N=24
+    """For as long as the mouse stays: grins at it, looks it over with a blink and a tilt of the body, grins again."""
+    fr=[]; N=40
     for i in range(N):
-        fx=drop(1,5+(i//8)%3)
-        fr.append((frame((caught_face((i//4)%2),),(fx,)),70))
+        look=18<=i<31
+        sx=kf(i,[(24,0),(26,-0.5),(28,-0.5),(30,0)]) if look else 0
+        fr.append((frame((clawd('n' if look else 'hap',-1 if look else 0,blink=i==21),sx)),90))
     return fr
 
 # ---------- 偷偷干活 · Working in Secret (mini-working) ----------

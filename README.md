@@ -109,7 +109,7 @@ See the [theme guide](dev-life/theme/clawd-dev-life/README.md) for all the anima
 - **Desktop interactions**: Clawd breathes and blinks while idle, follows the mouse with its eyes and randomly plays everyday scenes. It supports walking, dragging, clicking, repeated clicks and a dizzy reaction when you circle the mouse around it. The dizzy reaction is a variation of Usage Limit rather than a conventional dizzy animation.
 - **Sleep sequence**: Clawd struggles to keep its eyes open before putting on a nightcap and falling asleep. The wake-up animation leads into Coffee Break.
 
-- **Mini mode**: not shrunken stickers but a story of its own. The screen edge is a cubicle wall and Clawd hides behind it to keep watch, working in secret and getting caught when the mouse comes near.
+- **Mini mode**: not shrunken stickers but a story of its own. The screen edge is a cubicle wall and Clawd happily slacks off behind it, keeps an eye out, works in secret and greets you with a grin when the mouse comes near.
 
 No custom sound effects are included.
 
