@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -25 45 45" width="288" height="288">
+  <defs>
+    <style>
+      .crouch { transform: translateY(1px); }
+      .bob { animation: bob 0.28s infinite ease-in-out; }
+      .step-a, .step-b { animation: step 0.56s infinite step-end; }
+      .step-b { animation-delay: -0.28s; }
+      .ahead { animation: ahead 2.24s infinite step-end; }
+      .back { animation: back 2.24s infinite step-end; }
+      @keyframes bob { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(0, -0.5px); } }
+      @keyframes step { 0% { transform: translate(0, -1px); } 50% { transform: none; } }
+      @keyframes ahead { 0% { opacity: 1; } 50% { opacity: 0; } }
+      @keyframes back { 0% { opacity: 0; } 50% { opacity: 1; } }
+    </style>
+  </defs>
+  <g fill="#D77757">
+    <g class="bob">
+      <g class="step-a"><rect x="3" y="11" width="1" height="4"/></g><g class="step-b"><rect x="5" y="11" width="1" height="4"/></g><g class="step-a"><rect x="9" y="11" width="1" height="4"/></g><g class="step-b"><rect x="11" y="11" width="1" height="4"/></g>
+      <g class="crouch">
+        <rect x="2" y="6" width="11" height="7"/><rect x="0" y="7" width="2" height="2"/><rect x="13" y="7" width="2" height="2"/>
+        <g fill="#1a1a1a"><g class="ahead"><rect x="5" y="8" width="1" height="2"/><rect x="11" y="8" width="1" height="2"/></g><g class="back"><rect x="3" y="8" width="1" height="2"/><rect x="9" y="8" width="1" height="2"/></g></g>
+      </g>
+    </g>
+  </g>
+</svg>

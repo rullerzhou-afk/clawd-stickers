@@ -27,7 +27,8 @@
   "eyeTracking": {
     "enabled": true,
     "states": [
-      "idle"
+      "idle",
+      "mini-idle"
     ],
     "eyeRatioX": 0.5,
     "eyeRatioY": 0.667,
@@ -276,6 +277,63 @@
     }
   },
   "miniMode": {
-    "supported": false
+    "supported": true,
+    "offsetRatio": 0.486,
+    "peek": {
+      "offsetRatio": 0.09
+    },
+    "viewBox": {
+      "x": -15,
+      "y": -25,
+      "width": 45,
+      "height": 45
+    },
+    "states": {
+      "mini-idle": [
+        "mini-idle.svg"
+      ],
+      "mini-crabwalk": [
+        "mini-crabwalk.svg"
+      ],
+      "mini-enter": [
+        "mini-enter.apng"
+      ],
+      "mini-enter-sleep": [
+        "mini-enter-sleep.apng"
+      ],
+      "mini-peek": [
+        "mini-peek.apng"
+      ],
+      "mini-peek-hold": [
+        "mini-peek-hold.apng"
+      ],
+      "mini-working": [
+        "mini-working.apng"
+      ],
+      "mini-alert": [
+        "mini-alert.apng"
+      ],
+      "mini-happy": [
+        "mini-happy.apng"
+      ],
+      "mini-sleep": [
+        "mini-sleep.apng"
+      ],
+      "mini-sleep-peek": [
+        "mini-sleep-peek.apng"
+      ]
+    },
+    "timings": {
+      "minDisplay": {
+        "mini-alert": 3920,
+        "mini-happy": 3640,
+        "mini-peek": 1200
+      },
+      "autoReturn": {
+        "mini-alert": 3920,
+        "mini-happy": 3640,
+        "mini-peek": 1200
+      }
+    }
   }
 }

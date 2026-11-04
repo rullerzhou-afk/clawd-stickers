@@ -109,7 +109,9 @@ See the [theme guide](dev-life/theme/clawd-dev-life/README.md) for all the anima
 - **Desktop interactions**: Clawd breathes and blinks while idle, follows the mouse with its eyes and randomly plays everyday scenes. It supports walking, dragging, clicking, repeated clicks and a dizzy reaction when you circle the mouse around it. The dizzy reaction is a variation of Usage Limit rather than a conventional dizzy animation.
 - **Sleep sequence**: Clawd struggles to keep its eyes open before putting on a nightcap and falling asleep. The wake-up animation leads into Coffee Break.
 
-Mini mode and snapping to screen edges are currently unsupported. No custom sound effects are included.
+- **Mini mode**: not shrunken stickers but a story of its own. The screen edge is a cubicle wall and Clawd hides behind it to keep watch, working in secret and getting caught when the mouse comes near.
+
+No custom sound effects are included.
 
 You can view and adjust the animation configuration in clawd-on-desk settings. Any animations you don't like can be disabled or replaced manually.
 
@@ -174,7 +176,7 @@ python dev-life/theme/build.py
 python dev-life/theme/build.py --dark
 ```
 
-Output is written to `clawd-dev-life/` or `clawd-dev-life-dark/` under [`dev-life/theme/`](dev-life/theme/), replacing the corresponding configuration and animation assets with the same names. The `THEME` table in `build.py` maps states to animations, `animations.py` holds theme-specific frame animations that differ from the original stickers, and `svg.py` holds the idle, walking and dragging animations.
+Output is written to `clawd-dev-life/` or `clawd-dev-life-dark/` under [`dev-life/theme/`](dev-life/theme/), replacing the corresponding configuration and animation assets with the same names. The `THEME` table in `build.py` maps states to animations, `animations.py` holds theme-specific frame animations that differ from the original stickers, `svg.py` holds the idle, walking and dragging animations, and `mini.py` holds the mini mode animations.
 
 ### Check generated files
 
@@ -208,6 +210,7 @@ clawd-stickers/
     │   ├── package/           # LICENSE and README shipped in each theme
     │   ├── build.py           # Theme generator and state mapping
     │   ├── animations.py      # Theme-only frame animations
+    │   ├── mini.py            # Mini mode animations
     │   └── svg.py             # Theme-only SVG animations
     └── src/
         └── clawd_dev.py       # Sticker drawing, animation and GIF export
@@ -219,7 +222,7 @@ Issues are welcome for sticker ideas and bug reports, as are PRs improving anima
 
 - **Report a problem**: describe the affected sticker or theme and the steps to reproduce it. Include a screenshot or animation where possible. For desktop pet issues, also include your operating system and clawd-on-desk version. Please report issues with the clawd-on-desk application itself, rather than this theme, to the upstream project.
 - **Change stickers**: drawing and animation code lives in [`dev-life/src/clawd_dev.py`](dev-life/src/clawd_dev.py). Keep the existing pixel style and run `python dev-life/build_all.py` to update the GIFs and themes. When adding a sticker, update `ALL`, the `FILE` mapping if needed, and the set guides and home page previews in both languages.
-- **Change desktop pet themes**: state mappings, theme-specific frame animations and SVG animations live in `build.py`, `animations.py` and `svg.py` under `dev-life/theme/`, respectively. Edit the source files, update the animation tables in `package/` when animations or their triggers change, and rebuild both light and dark themes.
+- **Change desktop pet themes**: state mappings, theme-specific frame animations, SVG animations and mini mode animations live in `build.py`, `animations.py`, `svg.py` and `mini.py` under `dev-life/theme/`, respectively. Edit the source files, update the animation tables in `package/` when animations or their triggers change, and rebuild both light and dark themes.
 - **Submit a PR**: describe the changes, include previews where applicable, and submit the source files together with updated assets and relevant documentation. Run `python dev-life/check.py` before submitting. Check transparency, text readability and loop transitions on both light and dark backgrounds. For desktop pet changes, also check the affected states or interactions. Update both English and Chinese documentation when usage or the collection changes.
 
 ## License and usage

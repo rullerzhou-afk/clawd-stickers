@@ -109,7 +109,9 @@
 - **桌面互动**：待机时呼吸眨眼、眼睛跟随鼠标，随机播放日常小剧场；支持走动、拖拽、点击、多次点击和绕圈晕眩反应。本主题未采用常见的晕眩动画，而是做了 Usage Limit 动画的改版。
 - **睡眠流程**：从强撑着睁眼到戴睡帽入睡，唤醒动画接上咖啡续命。
 
-目前不支持迷你模式或靠近屏幕边缘吸附。没有设计专用音效。
+- **迷你模式**：不是表情包的缩小版，而是一套独立的剧情。屏幕边缘就是工位隔断，Clawd 躲在墙后望风、偷偷干活，鼠标一靠近就被抓包。
+
+没有设计专用音效。
 
 具体动画配置可以在 clawd-on-desk 设置中查看和调整。有不喜欢的动画，都可以手动关闭或替换。
 
@@ -174,7 +176,7 @@ python dev-life/theme/build.py
 python dev-life/theme/build.py --dark
 ```
 
-结果写入 [`dev-life/theme/`](dev-life/theme/) 下的 `clawd-dev-life/` 或 `clawd-dev-life-dark/`，会覆盖对应的配置和同名动画资源。`build.py` 里的 `THEME` 表是状态与动画的对应关系，`animations.py` 是与原版表情包不同、主题专用的逐帧动画，`svg.py` 是待机、走动和拖拽动画。
+结果写入 [`dev-life/theme/`](dev-life/theme/) 下的 `clawd-dev-life/` 或 `clawd-dev-life-dark/`，会覆盖对应的配置和同名动画资源。`build.py` 里的 `THEME` 表是状态与动画的对应关系，`animations.py` 是与原版表情包不同、主题专用的逐帧动画，`svg.py` 是待机、走动和拖拽动画，`mini.py` 是迷你模式动画。
 
 ### 检查生成文件
 
@@ -208,6 +210,7 @@ clawd-stickers/
     │   ├── package/           # 随主题分发的 LICENSE 和 README
     │   ├── build.py           # 主题生成脚本和状态对应表
     │   ├── animations.py      # 主题专用逐帧动画
+    │   ├── mini.py            # 迷你模式动画
     │   └── svg.py             # 主题专用 SVG 动画
     └── src/
         └── clawd_dev.py       # 表情绘图、动画与 GIF 导出脚本
@@ -219,7 +222,7 @@ clawd-stickers/
 
 - **反馈问题**：请说明涉及的表情或主题、复现步骤，尽量附上截图或动图。桌宠相关问题请补充操作系统与 clawd-on-desk 版本。涉及 clawd-on-desk 应用而不属于主题的问题，请向上游反馈。
 - **修改表情**：绘图和动画位于 [`dev-life/src/clawd_dev.py`](dev-life/src/clawd_dev.py)。请保持现有像素风格，运行 `python dev-life/build_all.py` 更新 GIF 和主题；新增表情时同步更新 `ALL`、必要的 `FILE` 映射，以及中英文套装说明和首页预览。
-- **修改桌宠主题**：状态映射、主题专用逐帧动画和 SVG 动画分别位于 `dev-life/theme/` 下的 `build.py`、`animations.py` 和 `svg.py`。请修改源文件；动画或触发时机有变化时同步更新 `package/` 中的动画表，然后重新构建浅色、深色主题。
+- **修改桌宠主题**：状态映射、主题专用逐帧动画、SVG 动画和迷你模式动画分别位于 `dev-life/theme/` 下的 `build.py`、`animations.py`、`svg.py` 和 `mini.py`。请修改源文件；动画或触发时机有变化时同步更新 `package/` 中的动画表，然后重新构建浅色、深色主题。
 - **提交 PR**：请附上改动说明和适用的预览，将源文件、更新后的成品及相关文档一并提交。提交前请运行 `python dev-life/check.py`。在浅色、深色背景下检查透明区域、文字可读性和循环衔接；涉及桌宠时，再检查受影响的状态或交互。用法或收录内容有变化时，请同步更新中英文文档。
 
 ## 许可与使用范围

@@ -14,6 +14,7 @@ THEME_DIR=os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0,os.path.join(THEME_DIR,'..','src'))
 from clawd_dev import *
 from animations import banned_long, bye_long, detached_long, dizzy, passed_long, team2, team3, wake, yawn
+from mini import MINI_FRAMES, MINI_OFFSET, MINI_ONCE, MINI_PEEK, MINI_SVGS, MINI_VIEWBOX
 from svg import SVGS
 
 # viewBox is in body cells, the same grid as the built-in Clawd theme (body x 0..15, feet at y=15).
@@ -30,11 +31,12 @@ THEME={
  'reactions':{'drag':'drag','clickLeft':'hello','clickRight':'right','annoyed':'notfound','double':['rmrf','detached_long','banned_long']},
 }
 ONESHOT=['attention','error','notification','carrying','dizzy']   # hold until the animation has played once
+MINI_ONESHOT=['mini-alert','mini-happy','mini-peek']   # hold until played once; the entries report their own length
 HOLD=300   # ms of extra stillness on the last frame of an animation played once for a fixed time
 ANIMATIONS={f.__name__:f for f in (banned_long,bye_long,detached_long,dizzy,passed_long,team2,team3,wake,yawn)}
-def to_apng(frames,path):
+def to_apng(frames,path,plays=0):
     frames[0][0].save(path,format='PNG',save_all=True,append_images=[im for im,_ in frames[1:]],
-                      duration=[d for _,d in frames],loop=0,disposal=0,blend=0)
+                      duration=[d for _,d in frames],loop=plays,disposal=0,blend=0)
     return os.path.getsize(path)
 def frames(nm): return square((ANIMATIONS.get(nm) or STICKERS[nm])())
 def theme(dark=False):
@@ -47,17 +49,20 @@ def theme(dark=False):
     vb={'x':-OX-(H-W)/2,'y':-OY,'width':H,'height':H}
     for nm,fn in SVGS.items():
         with open(os.path.join(ad,nm+'.svg'),'w',encoding='utf-8') as fp: fp.write(fn(vb))
+    for nm,fn in MINI_SVGS.items():
+        with open(os.path.join(ad,nm+'.svg'),'w',encoding='utf-8') as fp: fp.write(fn(MINI_VIEWBOX))
     st=THEME['states']; first=lambda s:ms[st[s][0]]
     # Animations clawd-on-desk plays once for a fixed time. Each gets HOLD ms of extra stillness on its
     # last frame, so a timer firing a little late never shows the loop restart. A reaction or state pool
     # shares one duration, so its shorter members hold their last frame until the longest one ends.
     once=set(THEME['idleAnimations'])|{n for s in ONESHOT+['yawning','waking'] for n in st[s]}
     once|={n for k,v in THEME['reactions'].items() if k!='drag' for n in ([v] if isinstance(v,str) else v)}
+    once|=MINI_ONCE
     pools=[v for v in THEME['reactions'].values() if not isinstance(v,str)]+[st[s] for s in ONESHOT if len(st[s])>1]
-    ms={}; pending={}; f=lambda n:n+('.svg' if n in SVGS else '.apng')
+    ms={}; pending={}; f=lambda n:n+('.svg' if n in SVGS or n in MINI_SVGS else '.apng')
     def write(nm,fr,pad=0):
         if nm in once: fr[-1]=(fr[-1][0],fr[-1][1]+pad+HOLD)
-        n=to_apng(fr,os.path.join(ad,f(nm)))
+        n=to_apng(fr,os.path.join(ad,f(nm)),1 if nm in MINI_ONCE else 0)
         print(f'{nm}: {len(fr)} frames, {ms[nm]}ms'+(f' (+{pad}ms hold)' if pad else '')+f', {n//1024}KB')
     for nm in dict.fromkeys(n for n in names if n not in SVGS):
         fr=frames(nm)
@@ -67,6 +72,8 @@ def theme(dark=False):
     for p in pools:
         T=max(ms[n] for n in p)
         for n in p: pad=T-ms[n]; ms[n]=T; write(n,pending[n],pad)
+    for nm,fn in MINI_FRAMES.items():
+        fr=fn(); ms[nm]=sum(d for _,d in fr); write(nm,fr)
     cfg={
      'schemaVersion':1,
      'name':'Clawd Dev Life'+(' (Dark)' if dark else ''),
@@ -78,7 +85,7 @@ def theme(dark=False):
      'layout':{'contentBox':{'x':0,'y':6,'width':15,'height':10},'centerX':7.5,'baselineY':16,
                'visibleHeightRatio':0.29,'baselineBottomRatio':0.05},
      # Same values as the built-in Clawd; the ratios place the eyes (7.5, 9) inside our viewBox.
-     'eyeTracking':{'enabled':True,'states':['idle'],
+     'eyeTracking':{'enabled':True,'states':['idle','mini-idle'],
                     'eyeRatioX':(7.5-vb['x'])/vb['width'],'eyeRatioY':round((9-vb['y'])/vb['height'],3),
                     'maxOffset':3,'bodyScale':0.33,'shadowStretch':0.15,'shadowShift':0.3,
                     'ids':{'eyes':'eyes-js','body':'body-js','shadow':'shadow-js'},'shadowOrigin':'7.5px 15px'},
@@ -101,7 +108,9 @@ def theme(dark=False):
                 'wakeDuration':first('waking')},
      'hitBoxes':{'default':{'x':-1,'y':5,'w':17,'h':11}},
      'fileHitBoxes':{f(n):b for n,b in THEME['hitBoxes'].items()},
-     'miniMode':{'supported':False},
+     'miniMode':{'supported':True,'offsetRatio':MINI_OFFSET,'peek':{'offsetRatio':MINI_PEEK},'viewBox':MINI_VIEWBOX,
+                 'states':{n:[f(n)] for n in (*MINI_SVGS,*MINI_FRAMES)},
+                 'timings':{'minDisplay':{s:ms[s] for s in MINI_ONESHOT},'autoReturn':{s:ms[s] for s in MINI_ONESHOT}}},
     }
     with open(os.path.join(out,'theme.json'),'w',encoding='utf-8') as fp:
         json.dump(cfg,fp,ensure_ascii=False,indent=2); fp.write('\n')
