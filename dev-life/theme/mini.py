@@ -36,6 +36,7 @@ def stamp(p,dx=0,dy=0):
     return img
 def clawd(mode='n',dx=0,ey=0,blink=False,left=DOWN):   # the defaults are the Lookout pose
     p=base(); face(p,mode,dx,ey,blink); arms(p,left,DOWN); return p
+def drop(x,y): return {(x,y):SWEAT,(x,y+1):SWEAT}
 def disc(cx_,cy_,r,c):
     return {(x,y):c for x in range(cx_-r,cx_+r+1) for y in range(cy_-r,cy_+r+1) if (x-cx_)**2+(y-cy_)**2<=r*r+r/2}
 
@@ -108,25 +109,22 @@ def mini_enter():
     hold(fr,{-1:200})
     return fr
 
-# ---------- 被发现啦 · Spotted (mini-peek) ----------
+# ---------- 被抓包 · Caught (mini-peek) ----------
 def mini_peek():
-    """Spotted: a little shrug and a grin as the window slides out, then two waves hello."""
+    """Jumps in fright as the window slides out, a drop of sweat flying off, then lands on an awkward smile with a
+    hand half raised, the first pose of Say Hi's wave."""
     fr=[]; N=20
     for i in range(N):
-        dip=0.6*math.sin(math.pi*clamp(i/4))
-        left=(UP if (i-4)//3%2==0 else MID) if 4<=i<16 else DOWN
-        fr.append((frame((clawd('hap' if i else 'n',left=left),0,dip)),60))
+        hop=2.4*math.sin(math.pi*clamp(i/6))
+        p=clawd('x',left=UP) if i<9 else clawd('hap',left=MID)
+        fr.append((frame((p,0,-hop),(drop(-2-i//2,4+i//2) if i<8 else {},)),60))
     return fr
 
-# ---------- 嘿嘿 · Hehe (mini-peek-hold) ----------
+# ---------- 打招呼 · Say Hi (mini-peek-hold) ----------
 def mini_peek_hold():
-    """For as long as the mouse stays: grins at it, looks it over with a blink and a tilt of the body, grins again."""
-    fr=[]; N=40
-    for i in range(N):
-        look=18<=i<31
-        sx=kf(i,[(24,0),(26,-0.5),(28,-0.5),(30,0)]) if look else 0
-        fr.append((frame((clawd('n' if look else 'hap',-1 if look else 0,blink=i==21),sx)),90))
-    return fr
+    """Waves hello for as long as the mouse stays: the wave of hello, world, on the arm facing
+    the desktop."""
+    return [(frame((clawd('hap',left=UP if (i//3)%2 else MID),),),70) for i in range(24)]
 
 # ---------- 偷偷干活 · Working in Secret (mini-working) ----------
 LAPTOP={**{(x,14):POLE for x in range(-6,1)},**{(x,15):LID_GREY for x in range(-7,2)},
