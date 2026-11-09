@@ -5,13 +5,15 @@ English | [简体中文](README.zh-CN.md)
 A [clawd-on-desk](https://github.com/rullerzhou-afk/clawd-on-desk) theme in which Clawd acts out everyday developer life.
 
 - **Author**: alwinecor
-- **Version**: 1.0.0
+- **Version**: 1.1.0
 - **Theme ID**: `clawd-dev-life`
 - **Source**: <https://github.com/alwinecor/clawd-stickers>
 
 ## Install
 
 Copy this folder into your clawd-on-desk themes folder, then pick the theme under **Settings... → Theme**.
+
+This theme includes light assets in `assets/` and dark assets in `assets-dark/`. clawd-on-desk follows the system appearance by default; you can also choose manually under **Settings → Theme → Appearance → Color scheme**. Older versions of clawd-on-desk show only the light assets.
 
 | System | Themes folder |
 | --- | --- |

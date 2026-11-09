@@ -6,7 +6,7 @@
 
 当前收录 **40 个动态表情**，主题为「克码人生 · Dev Life」。
 
-另附浅色、深色两版 [clawd-on-desk 桌宠主题](#桌宠主题)，让 Clawd 成为桌宠，随 Claude Code 的工作状态切换动画。
+另附内含浅色、深色两套资源的 [clawd-on-desk 桌宠主题](#桌宠主题)，让 Clawd 成为桌宠，随 Claude Code 的工作状态切换动画。
 
 > [!NOTE]
 > 本项目为非官方粉丝创作，与 Anthropic 无关联，亦未获得其背书。代码和文档采用 [MIT 许可](LICENSE)，美术素材采用 [CC BY-NC-SA 4.0](LICENSE-ART)，不允许商用；Claude Code 吉祥物等第三方权利除外。详见[许可与使用范围](#许可与使用范围)。
@@ -76,12 +76,13 @@
 
 ### 安装主题
 
-使用前需先安装 clawd-on-desk。仓库中已包含构建好的主题，下载后即可安装。
+使用前需先安装 clawd-on-desk。仓库中已包含构建好的主题，内含浅色、深色两套资源，下载后即可安装。
 
 | 适用桌面 | 主题文件夹 | 在应用中显示的名称 |
 |---|---|---|
-| 浅色 | [`clawd-dev-life`](dev-life/theme/clawd-dev-life/) | Clawd Dev Life |
-| 深色 | [`clawd-dev-life-dark`](dev-life/theme/clawd-dev-life-dark/) | Clawd Dev Life (Dark) |
+| 浅色、深色 | [`clawd-dev-life`](dev-life/theme/clawd-dev-life/) | Clawd Dev Life |
+
+clawd-on-desk 默认跟随系统深浅色，也可以在 **设置 → 主题 → 装扮 → 配色** 里手动选择。较旧版本的 clawd-on-desk 只显示浅色。
 
 各系统的主题目录如下：
 
@@ -91,9 +92,9 @@
 | macOS | `~/Library/Application Support/clawd-on-desk/themes/` |
 | Linux | `~/.config/clawd-on-desk/themes/` |
 
-1. 下载本仓库，在 `dev-life/theme/` 中选择适合桌面背景的主题文件夹。
-2. 将该文件夹**整体复制**到上表对应的主题目录，保留其中的 `theme.json` 和 `assets/`。
-3. 打开 clawd-on-desk 的 **Settings... → Theme**，选择对应的主题名称。如果没出现，重启一下 clawd-on-desk。
+1. 下载本仓库，找到 `dev-life/theme/clawd-dev-life/` 文件夹。
+2. 将该文件夹**整体复制**到上表对应的主题目录，保留其中的 `theme.json`、`assets/` 和 `assets-dark/`。
+3. 打开 clawd-on-desk 的 **Settings... → Theme**，选择 **Clawd Dev Life**。如果没出现，重启一下 clawd-on-desk。
 
 ### 动画与交互
 
@@ -133,7 +134,7 @@ python -m pip install -r requirements.txt
 
 ### 一键生成全部内容
 
-以下命令会一次生成全部表情和浅色、深色两套主题：
+以下命令会一次生成全部表情和内含浅色、深色两套资源的主题：
 
 ```bash
 python dev-life/build_all.py
@@ -167,14 +168,11 @@ python dev-life/src/clawd_dev.py --dark
 仅在修改动画或主题配置后需要重新构建。主题会直接调用表情的生成函数，不依赖 `gif/` 或 `gif-dark/` 中的文件。
 
 ```bash
-# 浅色主题
+# 一个主题，内含浅色和深色两套资源
 python dev-life/theme/build.py
-
-# 深色主题
-python dev-life/theme/build.py --dark
 ```
 
-结果写入 [`dev-life/theme/`](dev-life/theme/) 下的 `clawd-dev-life/` 或 `clawd-dev-life-dark/`，会覆盖对应的配置和同名动画资源。`build.py` 里的 `THEME` 表是状态与动画的对应关系，`animations.py` 是与原版表情包不同、主题专用的逐帧动画，`svg.py` 是待机、走动和拖拽动画。
+结果写入 [`dev-life/theme/`](dev-life/theme/) 下的 `clawd-dev-life/`，浅色资源在 `assets/`，深色资源在 `assets-dark/`，会覆盖配置和同名动画资源。`build.py` 里的 `THEME` 表是状态与动画的对应关系，`animations.py` 是与原版表情包不同、主题专用的逐帧动画，`svg.py` 是待机、走动和拖拽动画。
 
 ### 检查生成文件
 
@@ -203,8 +201,9 @@ clawd-stickers/
     ├── gif/                   # 40 个成品 GIF
     ├── gif-dark/              # 40 个成品 GIF（深色背景）
     ├── theme/                 # clawd-on-desk 桌宠主题
-    │   ├── clawd-dev-life/       # 浅色主题安装包
-    │   ├── clawd-dev-life-dark/  # 深色主题安装包
+    │   ├── clawd-dev-life/    # 内含浅色、深色资源的主题安装包
+    │   │   ├── assets/        # 浅色资源
+    │   │   └── assets-dark/   # 深色资源
     │   ├── package/           # 随主题分发的 LICENSE 和 README
     │   ├── build.py           # 主题生成脚本和状态对应表
     │   ├── animations.py      # 主题专用逐帧动画
@@ -219,7 +218,7 @@ clawd-stickers/
 
 - **反馈问题**：请说明涉及的表情或主题、复现步骤，尽量附上截图或动图。桌宠相关问题请补充操作系统与 clawd-on-desk 版本。涉及 clawd-on-desk 应用而不属于主题的问题，请向上游反馈。
 - **修改表情**：绘图和动画位于 [`dev-life/src/clawd_dev.py`](dev-life/src/clawd_dev.py)。请保持现有像素风格，运行 `python dev-life/build_all.py` 更新 GIF 和主题；新增表情时同步更新 `ALL`、必要的 `FILE` 映射，以及中英文套装说明和首页预览。
-- **修改桌宠主题**：状态映射、主题专用逐帧动画和 SVG 动画分别位于 `dev-life/theme/` 下的 `build.py`、`animations.py` 和 `svg.py`。请修改源文件；动画或触发时机有变化时同步更新 `package/` 中的动画表，然后重新构建浅色、深色主题。
+- **修改桌宠主题**：状态映射、主题专用逐帧动画和 SVG 动画分别位于 `dev-life/theme/` 下的 `build.py`、`animations.py` 和 `svg.py`。请修改源文件；动画或触发时机有变化时同步更新 `package/` 中的动画表，然后重新构建内含浅色、深色两套资源的主题。
 - **提交 PR**：请附上改动说明和适用的预览，将源文件、更新后的成品及相关文档一并提交。提交前请运行 `python dev-life/check.py`。在浅色、深色背景下检查透明区域、文字可读性和循环衔接；涉及桌宠时，再检查受影响的状态或交互。用法或收录内容有变化时，请同步更新中英文文档。
 
 ## 许可与使用范围
