@@ -2,7 +2,7 @@
 
 [Back to home](../README.md) · English | [简体中文](README.zh-CN.md)
 
-The [Clawd Dev Life desktop pet theme](theme/clawd-dev-life/README.md) includes light and dark assets in one package. clawd-on-desk follows the system appearance by default; you can also choose manually under **Settings → Theme → Appearance → Color scheme**. Older versions of clawd-on-desk show only the light assets.
+The [Clawd Dev Life desktop pet theme](theme/clawd-dev-life/README.md) includes light and dark assets in one package. clawd-on-desk follows the system appearance by default; you can also choose manually under **Settings → Theme → Customize → Color scheme**. Older versions of clawd-on-desk show only the light assets.
 
 | # | Name | Sticker | Story |
 |---|---|---|---|

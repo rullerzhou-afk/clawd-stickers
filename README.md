@@ -82,7 +82,7 @@ Install clawd-on-desk first. A ready-to-install theme with both light and dark a
 |---|---|---|
 | Light and dark | [`clawd-dev-life`](dev-life/theme/clawd-dev-life/) | Clawd Dev Life |
 
-clawd-on-desk follows the system appearance by default. You can also choose manually under **Settings → Theme → Appearance → Color scheme**. Older versions of clawd-on-desk show only the light assets.
+clawd-on-desk follows the system appearance by default. You can also choose manually under **Settings → Theme → Customize → Color scheme**. Older versions of clawd-on-desk show only the light assets.
 
 The themes directory depends on your operating system:
 
