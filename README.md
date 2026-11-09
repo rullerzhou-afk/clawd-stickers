@@ -6,7 +6,7 @@ A collection of pixel-art animated stickers starring **Clawd**, the Claude Code 
 
 The collection currently contains **40 animated stickers** with the theme **Dev Life · 克码人生**.
 
-Light and dark [clawd-on-desk themes](#desktop-pet-theme) are also included, bringing Clawd to your desktop with animations that follow Claude Code's working state.
+A [clawd-on-desk theme](#desktop-pet-theme) with light and dark assets is also included and listed among the app's community themes, bringing Clawd to your desktop with animations that follow Claude Code's working state.
 
 > [!NOTE]
 > This is an unofficial fan project, unaffiliated with and not endorsed by Anthropic. Code and documentation are [MIT-licensed](LICENSE); artwork is [CC BY-NC-SA 4.0](LICENSE-ART), so commercial use is not permitted. Third-party rights, including the Claude Code mascot, are excluded. See [License and usage](#license-and-usage).
@@ -30,7 +30,7 @@ Light and dark [clawd-on-desk themes](#desktop-pet-theme) are also included, bri
 - **Ready-to-use GIFs**: every sticker is 288×288 with a transparent background and loops continuously. Download and use them directly, with no development environment needed.
 - **Light and dark sets**: the dark set brightens text and outlines and darkens ground shadows for dark-mode chats.
 - **Generated with code**: the Python script uses Pillow, with no extra fonts to download. Generate all stickers or selected ones locally.
-- **Import into clawd-on-desk**: the stickers have been adapted into a dedicated theme for clawd-on-desk. Import it manually as a custom theme to replace the built-in one.
+- **Available in clawd-on-desk**: the stickers have been adapted into a dedicated clawd-on-desk theme, listed among the app's community themes. Download it in the app, or install it manually from this repository.
 
 ## Sticker preview
 
@@ -76,12 +76,15 @@ The set is also packaged as the **Clawd Dev Life** theme for [clawd-on-desk](htt
 
 ### Install the theme
 
-Install clawd-on-desk first. Ready-to-install themes are included in this repository.
+**From the app (recommended)**: in clawd-on-desk 1.5.0 or later, open **Settings... → Theme**, find **Clawd Dev Life** among the community themes, and download it.
+
+**Manually**: a ready-to-install theme is also included in this repository, which may be ahead of the version in the app. Install clawd-on-desk first, then follow the steps below.
 
 | Desktop background | Theme folder | Name shown in the app |
 |---|---|---|
-| Light | [`clawd-dev-life`](dev-life/theme/clawd-dev-life/) | Clawd Dev Life |
-| Dark | [`clawd-dev-life-dark`](dev-life/theme/clawd-dev-life-dark/) | Clawd Dev Life (Dark) |
+| Light and dark | [`clawd-dev-life`](dev-life/theme/clawd-dev-life/) | Clawd Dev Life |
+
+clawd-on-desk follows the system appearance by default. You can also choose manually under **Settings → Theme → Customize → Color scheme**. Older versions of clawd-on-desk show only the light assets.
 
 The themes directory depends on your operating system:
 
@@ -91,9 +94,9 @@ The themes directory depends on your operating system:
 | macOS | `~/Library/Application Support/clawd-on-desk/themes/` |
 | Linux | `~/.config/clawd-on-desk/themes/` |
 
-1. Download this repository and choose the folder in `dev-life/theme/` that suits your desktop background.
-2. Copy the **entire folder** into the themes directory listed above, keeping its `theme.json` and `assets/` intact.
-3. In clawd-on-desk, open **Settings... → Theme** and select the matching theme name. Restart clawd-on-desk if it doesn't appear.
+1. Download this repository and find the `dev-life/theme/clawd-dev-life/` folder.
+2. Copy the **entire folder** into the themes directory listed above, keeping its `theme.json`, `assets/` and `assets-dark/` intact.
+3. In clawd-on-desk, open **Settings... → Theme** and select **Clawd Dev Life**. Restart clawd-on-desk if it doesn't appear.
 
 ### Animations and interactions
 
@@ -135,7 +138,7 @@ python -m pip install -r requirements.txt
 
 ### Generate everything
 
-This command generates all stickers and both themes, light and dark, in one go:
+This command generates all stickers and the theme, including light and dark assets, in one go:
 
 ```bash
 python dev-life/build_all.py
@@ -169,18 +172,17 @@ Arguments match GIF filenames without the `.gif` extension, such as `thinking`, 
 Rebuild only after changing animations or the theme configuration. The theme calls the sticker generators directly, so it doesn't depend on the files in `gif/` or `gif-dark/`.
 
 ```bash
-# Light theme
+# One theme with light and dark assets
 python dev-life/theme/build.py
-
-# Dark theme
-python dev-life/theme/build.py --dark
 ```
 
-Output is written to `clawd-dev-life/` or `clawd-dev-life-dark/` under [`dev-life/theme/`](dev-life/theme/), replacing the corresponding configuration and animation assets with the same names. The `THEME` table in `build.py` maps states to animations, `animations.py` holds theme-specific frame animations that differ from the original stickers, `svg.py` holds the idle, walking and dragging animations, and `mini.py` holds the mini mode animations.
+Output is written to `clawd-dev-life/` under [`dev-life/theme/`](dev-life/theme/), with light assets in `assets/` and dark assets in `assets-dark/`, replacing the configuration and animation assets with the same names. The `THEME` table in `build.py` maps states to animations, `animations.py` holds theme-specific frame animations that differ from the original stickers, `svg.py` holds the idle, walking and dragging animations, and `mini.py` holds the mini mode animations.
+
+`python dev-life/theme/preview.py` draws the 300×300 thumbnail that the clawd-themes catalog shows for the theme into [`dev-life/theme/previews/`](dev-life/theme/previews/). Each new theme version needs one.
 
 ### Check generated files
 
-This command rebuilds all stickers and themes in a temporary copy, then lists any committed files that no longer match their source. It changes nothing in the repository and also runs automatically on GitHub for pushes to `main` and for pull requests.
+This command rebuilds all stickers, the theme and its thumbnail in a temporary copy, then lists any committed files that no longer match their source. It changes nothing in the repository and also runs automatically on GitHub for pushes to `main` and for pull requests.
 
 ```bash
 python dev-life/check.py
@@ -200,17 +202,20 @@ clawd-stickers/
 └── dev-life/                  # Dev Life sticker set
     ├── README.md              # English sticker content guide
     ├── README.zh-CN.md        # Chinese sticker content guide
-    ├── build_all.py           # Generate all stickers and themes
+    ├── build_all.py           # Generate all stickers, the theme and its thumbnail
     ├── check.py               # Check that generated files match their source
     ├── gif/                   # 40 finished GIFs
     ├── gif-dark/              # 40 finished GIFs (dark background)
-    ├── theme/                 # clawd-on-desk desktop pet themes
-    │   ├── clawd-dev-life/       # Light theme package
-    │   ├── clawd-dev-life-dark/  # Dark theme package
-    │   ├── package/           # LICENSE and README shipped in each theme
+    ├── theme/                 # clawd-on-desk desktop pet theme
+    │   ├── clawd-dev-life/    # Theme package with light and dark assets
+    │   │   ├── assets/        # Light assets
+    │   │   └── assets-dark/   # Dark assets
+    │   ├── package/           # LICENSE and README shipped in the theme
+    │   ├── previews/          # Catalog thumbnail
     │   ├── build.py           # Theme generator and state mapping
     │   ├── animations.py      # Theme-only frame animations
     │   ├── mini.py            # Mini mode animations
+    │   ├── preview.py         # Catalog thumbnail generator
     │   └── svg.py             # Theme-only SVG animations
     └── src/
         └── clawd_dev.py       # Sticker drawing, animation and GIF export
@@ -221,8 +226,8 @@ clawd-stickers/
 Issues are welcome for sticker ideas and bug reports, as are PRs improving animations, desktop pet themes, documentation and translations. See [Generate locally](#generate-locally) for setup and generation commands.
 
 - **Report a problem**: describe the affected sticker or theme and the steps to reproduce it. Include a screenshot or animation where possible. For desktop pet issues, also include your operating system and clawd-on-desk version. Please report issues with the clawd-on-desk application itself, rather than this theme, to the upstream project.
-- **Change stickers**: drawing and animation code lives in [`dev-life/src/clawd_dev.py`](dev-life/src/clawd_dev.py). Keep the existing pixel style and run `python dev-life/build_all.py` to update the GIFs and themes. When adding a sticker, update `ALL`, the `FILE` mapping if needed, and the set guides and home page previews in both languages.
-- **Change desktop pet themes**: state mappings, theme-specific frame animations, SVG animations and mini mode animations live in `build.py`, `animations.py`, `svg.py` and `mini.py` under `dev-life/theme/`, respectively. Edit the source files, update the animation tables in `package/` when animations or their triggers change, and rebuild both light and dark themes.
+- **Change stickers**: drawing and animation code lives in [`dev-life/src/clawd_dev.py`](dev-life/src/clawd_dev.py). Keep the existing pixel style and run `python dev-life/build_all.py` to update the GIFs and theme. When adding a sticker, update `ALL`, the `FILE` mapping if needed, and the set guides and home page previews in both languages.
+- **Change the desktop pet theme**: state mappings, theme-specific frame animations, SVG animations and mini mode animations live in `build.py`, `animations.py`, `svg.py` and `mini.py` under `dev-life/theme/`, respectively. Edit the source files, update the animation tables in `package/` when animations or their triggers change, and rebuild the theme.
 - **Submit a PR**: describe the changes, include previews where applicable, and submit the source files together with updated assets and relevant documentation. Run `python dev-life/check.py` before submitting. Check transparency, text readability and loop transitions on both light and dark backgrounds. For desktop pet changes, also check the affected states or interactions. Update both English and Chinese documentation when usage or the collection changes.
 
 ## License and usage

@@ -11,7 +11,11 @@ A [clawd-on-desk](https://github.com/rullerzhou-afk/clawd-on-desk) theme in whic
 
 ## Install
 
-Copy this folder into your clawd-on-desk themes folder, then pick the theme under **Settings... → Theme**.
+In clawd-on-desk 1.5.0 or later, download this theme from the community themes under **Settings... → Theme**.
+
+To install it by hand, copy this folder into your clawd-on-desk themes folder, then pick the theme under **Settings... → Theme**.
+
+This theme includes light assets in `assets/` and dark assets in `assets-dark/`. clawd-on-desk follows the system appearance by default; you can also choose manually under **Settings → Theme → Customize → Color scheme**. Older versions of clawd-on-desk show only the light assets.
 
 | System | Themes folder |
 | --- | --- |
@@ -31,7 +35,7 @@ Copy this folder into your clawd-on-desk themes folder, then pick the theme unde
 - Pet tint is turned off.
 - No custom sound effects.
 - In mini mode, clawd-on-desk shows no errors, context compaction, git clone or dizzy, and there are no click reactions: a click leaves mini mode.
-- Tested with clawd-on-desk 1.5.0 on Windows. macOS and Linux are untested.
+- Tested with clawd-on-desk 1.5.0 on Windows and macOS. Linux is untested. Mini mode is tested on Windows only.
 
 ## Animations
 

@@ -5,13 +5,17 @@
 [clawd-on-desk](https://github.com/rullerzhou-afk/clawd-on-desk) 主题：让 Clawd 演出开发者的日常。
 
 - **作者**：alwinecor
-- **版本**：1.0.0
+- **版本**：1.1.0
 - **主题 ID**：`clawd-dev-life`
 - **源仓库**：<https://github.com/alwinecor/clawd-stickers>
 
 ## 安装
 
-把本文件夹复制到 clawd-on-desk 的主题目录，然后在 **Settings... → Theme** 中选择本主题。
+在 clawd-on-desk 1.5.0 或更新版本中，可以直接在 **设置 → 主题**（Settings... → Theme）的「社区主题」里下载本主题。
+
+如需手动安装，把本文件夹复制到 clawd-on-desk 的主题目录，然后在 **Settings... → Theme** 中选择本主题。
+
+本主题内含浅色、深色两套资源，分别在 `assets/` 和 `assets-dark/` 中。clawd-on-desk 默认跟随系统深浅色，也可以在 **设置 → 主题 → 装扮 → 配色** 里手动选择。较旧版本的 clawd-on-desk 只显示浅色。
 
 | 系统 | 主题目录 |
 | --- | --- |
@@ -31,7 +35,7 @@
 - 已关闭桌宠染色。
 - 无专属音效。
 - 迷你模式下，clawd-on-desk 不会显示报错、上下文压缩、克隆和晕眩，也没有点击反应：单击会退出迷你模式。
-- 已在 Windows 上的 clawd-on-desk 1.5.0 测试，macOS 和 Linux 尚未测试。
+- 已在 Windows 和 macOS 上的 clawd-on-desk 1.5.0 测试，Linux 尚未测试。迷你模式仅在 Windows 上测试过。
 
 ## 全部动画
 
