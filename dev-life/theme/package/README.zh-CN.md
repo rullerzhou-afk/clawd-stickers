@@ -15,6 +15,8 @@
 
 如需手动安装，把本文件夹复制到 clawd-on-desk 的主题目录，然后在 **Settings... → Theme** 中选择本主题。
 
+本主题内含浅色、深色两套资源，分别在 `assets/` 和 `assets-dark/` 中。clawd-on-desk 默认跟随系统深浅色，也可以在 **设置 → 主题 → 装扮 → 配色** 里手动选择。较旧版本的 clawd-on-desk 只显示浅色。
+
 | 系统 | 主题目录 |
 | --- | --- |
 | Windows | `%APPDATA%/clawd-on-desk/themes/` |

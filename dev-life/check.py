@@ -10,7 +10,7 @@ Compare with the Pillow version pinned in ../requirements.txt: another version c
 """
 import os, shutil, subprocess, sys, tempfile
 HERE=os.path.dirname(os.path.abspath(__file__))
-OUTPUTS=('gif','gif-dark','theme/clawd-dev-life','theme/clawd-dev-life-dark','theme/previews')
+OUTPUTS=('gif','gif-dark','theme/clawd-dev-life','theme/previews')
 def read(path):
     data=open(path,'rb').read()
     return data.replace(b'\r\n',b'\n') if path.endswith(('.json','.svg','.md','LICENSE')) else data   # git may check out either

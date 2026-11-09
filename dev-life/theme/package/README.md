@@ -15,6 +15,8 @@ In clawd-on-desk 1.5.0 or later, download this theme from the community themes u
 
 To install it by hand, copy this folder into your clawd-on-desk themes folder, then pick the theme under **Settings... → Theme**.
 
+This theme includes light assets in `assets/` and dark assets in `assets-dark/`. clawd-on-desk follows the system appearance by default; you can also choose manually under **Settings → Theme → Customize → Color scheme**. Older versions of clawd-on-desk show only the light assets.
+
 | System | Themes folder |
 | --- | --- |
 | Windows | `%APPDATA%/clawd-on-desk/themes/` |

@@ -1,14 +1,14 @@
 # SPDX-License-Identifier: MIT
 # License: ../../LICENSE
 """
-Draws the 300x300 catalog thumbnail of each theme: a terminal sign reading "dev life" over Clawd with a coffee.
+Draws the theme's 300x300 catalog thumbnail: a terminal sign reading "dev life" over Clawd with a coffee.
 
-  python preview.py          # light theme -> previews/clawd-dev-life.webp
-  python preview.py --dark   # dark theme -> previews/clawd-dev-life-dark.webp
+  python preview.py   # -> previews/clawd-dev-life.webp
 
 The clawd-themes catalog shows it on the theme's card; a new theme version needs it again.
+It uses the light colours, like the catalog card of a theme with dark assets.
 """
-import argparse, os, sys
+import os, sys
 THEME_DIR=os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0,os.path.join(THEME_DIR,'..','src'))
 import clawd_dev
@@ -29,16 +29,14 @@ def sign():
     box(img,x2,y2,x2+3*px,y2+5*px,ORG)   # cursor
     p=base(); face(p,'hap'); steam=held_mug(p)
     return comp(shadow(),img,draw(canvas(),p),steam)
-def preview(dark=False):
-    set_dark(dark)
+def preview():
+    set_dark(False)
     img=sign(); tile=Image.new('RGBA',(SIZE,SIZE),(0,0,0,0))
     tile.alpha_composite(img,((SIZE-img.width)//2,(SIZE-img.height)//2))
     out=os.path.join(THEME_DIR,'previews'); os.makedirs(out,exist_ok=True)
-    path=os.path.join(out,'clawd-dev-life'+('-dark' if dark else '')+'.webp')
+    path=os.path.join(out,'clawd-dev-life.webp')
     tile.save(path,lossless=True,method=6)
     print(f'preview -> {os.path.normpath(path)}')
 
 if __name__=='__main__':
-    ap=argparse.ArgumentParser(description='Draw the catalog thumbnail of a theme.')
-    ap.add_argument('--dark',action='store_true',help='draw the dark theme thumbnail')
-    preview(ap.parse_args().dark)
+    preview()

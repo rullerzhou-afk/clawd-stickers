@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 # License: ../LICENSE
 """
-Generates every sticker, theme and catalog thumbnail, light and dark, in one go.
+Generates every sticker, the theme and its catalog thumbnail, in light and dark, in one go.
 
   python dev-life/build_all.py
 """
@@ -13,4 +13,5 @@ from clawd_dev import build_stickers, set_dark
 
 if __name__=='__main__':
     for dark in (False,True):
-        set_dark(dark); build_stickers(); theme(dark); preview(dark)
+        set_dark(dark); build_stickers()
+    theme(); preview()
