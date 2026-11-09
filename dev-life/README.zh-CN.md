@@ -2,6 +2,8 @@
 
 [返回首页](../README.zh-CN.md) · [English](README.md) | 简体中文
 
+[Clawd Dev Life 桌宠主题](theme/clawd-dev-life/README.zh-CN.md)在一个主题包内包含浅色、深色两套资源。clawd-on-desk 默认跟随系统深浅色，也可以在 **设置 → 主题 → 装扮 → 配色** 里手动选择。较旧版本的 clawd-on-desk 只显示浅色。
+
 | # | 名字 | 动图 | 小剧情 |
 |---|---|---|---|
 | 1 | **你好，世界**<br>hello, world | <img src="gif/hello.gif" width="120"> | 一边打出 `hello, world` 一边挥手，打招呼用。 |

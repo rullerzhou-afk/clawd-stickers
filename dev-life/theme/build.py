@@ -1,11 +1,10 @@
 # SPDX-License-Identifier: MIT
 # License: ../../LICENSE
 """
-Builds the clawd-on-desk themes in this folder from the sticker generators in ../src/clawd_dev.py,
+Builds the clawd-on-desk theme in this folder from the sticker generators in ../src/clawd_dev.py,
 plus the theme-only animations in animations.py and svg.py.
 
-  python build.py          # light theme -> clawd-dev-life/
-  python build.py --dark   # dark theme -> clawd-dev-life-dark/
+  python build.py   # light and dark assets -> clawd-dev-life/
 
 https://github.com/rullerzhou-afk/clawd-on-desk/blob/main/docs/guides/guide-theme-creation.md
 """
@@ -37,16 +36,12 @@ def to_apng(frames,path):
                       duration=[d for _,d in frames],loop=0,disposal=0,blend=0)
     return os.path.getsize(path)
 def frames(nm): return square((ANIMATIONS.get(nm) or STICKERS[nm])())
-def theme(dark=False):
-    set_dark(dark)
-    out=os.path.join(THEME_DIR,'clawd-dev-life'+('-dark' if dark else '')); ad=os.path.join(out,'assets')
-    os.makedirs(ad,exist_ok=True)
+def theme():
+    out=os.path.join(THEME_DIR,'clawd-dev-life')
     names=list(dict.fromkeys(n for v in THEME['states'].values() for n in v))
     names+=[n for _,ns in THEME['workingTiers'] for n in ns]+THEME['idleAnimations']
     names+=[n for v in THEME['reactions'].values() for n in ([v] if isinstance(v,str) else v)]
     vb={'x':-OX-(H-W)/2,'y':-OY,'width':H,'height':H}
-    for nm,fn in SVGS.items():
-        with open(os.path.join(ad,nm+'.svg'),'w',encoding='utf-8') as fp: fp.write(fn(vb))
     st=THEME['states']; first=lambda s:ms[st[s][0]]
     # Animations clawd-on-desk plays once for a fixed time. Each gets HOLD ms of extra stillness on its
     # last frame, so a timer firing a little late never shows the loop restart. A reaction or state pool
@@ -54,26 +49,38 @@ def theme(dark=False):
     once=set(THEME['idleAnimations'])|{n for s in ONESHOT+['yawning','waking'] for n in st[s]}
     once|={n for k,v in THEME['reactions'].items() if k!='drag' for n in ([v] if isinstance(v,str) else v)}
     pools=[v for v in THEME['reactions'].values() if not isinstance(v,str)]+[st[s] for s in ONESHOT if len(st[s])>1]
-    ms={}; pending={}; f=lambda n:n+('.svg' if n in SVGS else '.apng')
+    durations={}; f=lambda n:n+('.svg' if n in SVGS else '.apng')
     def write(nm,fr,pad=0):
         if nm in once: fr[-1]=(fr[-1][0],fr[-1][1]+pad+HOLD)
         n=to_apng(fr,os.path.join(ad,f(nm)))
         print(f'{nm}: {len(fr)} frames, {ms[nm]}ms'+(f' (+{pad}ms hold)' if pad else '')+f', {n//1024}KB')
-    for nm in dict.fromkeys(n for n in names if n not in SVGS):
-        fr=frames(nm)
-        ms[nm]=sum(d for _,d in fr)
-        if any(nm in p for p in pools): pending[nm]=fr
-        else: write(nm,fr)
-    for p in pools:
-        T=max(ms[n] for n in p)
-        for n in p: pad=T-ms[n]; ms[n]=T; write(n,pending[n],pad)
+    for dark in (False,True):
+        set_dark(dark)
+        ad=os.path.join(out,'assets-dark' if dark else 'assets'); os.makedirs(ad,exist_ok=True)
+        for nm,fn in SVGS.items():
+            with open(os.path.join(ad,nm+'.svg'),'w',encoding='utf-8') as fp: fp.write(fn(vb))
+        ms={}; pending={}
+        for nm in dict.fromkeys(n for n in names if n not in SVGS):
+            fr=frames(nm); ds=[d for _,d in fr]
+            # Both palettes share timers; compare before pool padding can hide a mismatch.
+            if not dark: durations[nm]=ds
+            elif ds!=durations[nm]: raise ValueError(f'{nm}: light and dark frame durations differ')
+            ms[nm]=sum(ds)
+            if any(nm in p for p in pools): pending[nm]=fr
+            else: write(nm,fr)
+        for p in pools:
+            T=max(ms[n] for n in p)
+            for n in p: pad=T-ms[n]; ms[n]=T; write(n,pending[n],pad)
+        if not dark: light_ms=ms
+    ms=light_ms
     cfg={
      'schemaVersion':1,
-     'name':'Clawd Dev Life'+(' (Dark)' if dark else ''),
-     'author':'alwinecor','version':'1.0.0','license':'CC BY-NC-SA 4.0',
+     'name':'Clawd Dev Life',
+     'author':'alwinecor','version':'1.1.0','license':'CC BY-NC-SA 4.0',
      'description':'Clawd Dev Life 主题：思考、写码、压缩上下文、报错都有对应的小剧场。'
-                   '非官方同人作品，与 Anthropic 无关。'+('适合深色桌面。' if dark else ''),
+                   '非官方同人作品，与 Anthropic 无关。',
      'preview':f('idle'),
+     'appearance':{'dark':{'assetsDir':'assets-dark'}},
      'viewBox':vb,
      'layout':{'contentBox':{'x':0,'y':6,'width':15,'height':10},'centerX':7.5,'baselineY':16,
                'visibleHeightRatio':0.29,'baselineBottomRatio':0.05},
@@ -105,7 +112,7 @@ def theme(dark=False):
     }
     with open(os.path.join(out,'theme.json'),'w',encoding='utf-8') as fp:
         json.dump(cfg,fp,ensure_ascii=False,indent=2); fp.write('\n')
-    # package/ holds the documents shipped beside theme.json, shared by both themes.
+    # package/ holds the documents shipped beside theme.json.
     for nm in ('LICENSE','README.md','README.zh-CN.md'):
         with open(os.path.join(THEME_DIR,'package',nm),encoding='utf-8') as fp: text=fp.read()
         with open(os.path.join(out,nm),'w',encoding='utf-8') as fp:
@@ -114,5 +121,4 @@ def theme(dark=False):
 
 if __name__=='__main__':
     ap=argparse.ArgumentParser(description='Build a clawd-on-desk theme.')
-    ap.add_argument('--dark',action='store_true',help='build the dark theme in clawd-dev-life-dark/')
-    theme(ap.parse_args().dark)
+    ap.parse_args(); theme()
