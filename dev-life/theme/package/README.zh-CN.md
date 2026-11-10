@@ -114,14 +114,14 @@
 
 | 触发时机 | 预览 | 动画 |
 | --- | --- | --- |
-| 走向屏幕边缘 | <img src="assets/mini-crabwalk.svg" width="160"> | **溜号**<br>Sneak |
+| 走向屏幕边缘 | <img src="assets/mini-crabwalk.svg" width="160"> | **溜号**<br>Slip Away |
 | 进入迷你模式 | <img src="assets/mini-enter.apng" width="160"> | **躲好**<br>Hide |
 | 平时 | <img src="assets/mini-idle.svg" width="160"> | **望风**<br>Lookout |
 | 鼠标移上来 | <img src="assets/mini-peek.apng" width="160"> | **被抓包**<br>Caught |
 | 鼠标停留 | <img src="assets/mini-peek-hold.apng" width="160"> | **打招呼**<br>Say Hi |
 | 思考、使用工具、子代理运行中 | <img src="assets/mini-working.apng" width="160"> | **偷偷干活**<br>Working in Secret |
 | 权限请求或提醒 | <img src="assets/mini-alert.apng" width="160"> | **有人找**<br>Someone's Asking |
-| 任务完成 | <img src="assets/mini-happy.apng" width="160"> | **偷着乐**<br>Secret Win |
+| 任务完成 | <img src="assets/mini-happy.apng" width="160"> | **亮绿旗**<br>Green Flag |
 | 免打扰时进入 | <img src="assets/mini-enter-sleep.apng" width="160"> | **戴耳机**<br>Headphones On |
 | 免打扰 | <img src="assets/mini-sleep.apng" width="160"> | **午休**<br>Nap |
 | 免打扰时鼠标移上来 | <img src="assets/mini-sleep-peek.apng" width="160"> | **偷看**<br>Who's There |

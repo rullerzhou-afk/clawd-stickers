@@ -114,14 +114,14 @@ Drag Clawd to the left or right screen edge, or enter from the menu.
 
 | When | Preview | Animation |
 | --- | --- | --- |
-| Walking to the screen edge | <img src="assets/mini-crabwalk.svg" width="160"> | **Sneak** |
+| Walking to the screen edge | <img src="assets/mini-crabwalk.svg" width="160"> | **Slip Away** |
 | Entering mini mode | <img src="assets/mini-enter.apng" width="160"> | **Hide** |
 | No activity | <img src="assets/mini-idle.svg" width="160"> | **Lookout** |
 | Mouse moves onto Clawd | <img src="assets/mini-peek.apng" width="160"> | **Caught** |
 | Mouse stays | <img src="assets/mini-peek-hold.apng" width="160"> | **Say Hi** |
 | Thinking, using tools or running subagents | <img src="assets/mini-working.apng" width="160"> | **Working in Secret** |
 | Permission request or alert | <img src="assets/mini-alert.apng" width="160"> | **Someone's Asking** |
-| Task completed | <img src="assets/mini-happy.apng" width="160"> | **Secret Win** |
+| Task completed | <img src="assets/mini-happy.apng" width="160"> | **Green Flag** |
 | Entering with Do Not Disturb on | <img src="assets/mini-enter-sleep.apng" width="160"> | **Headphones On** |
 | Do Not Disturb | <img src="assets/mini-sleep.apng" width="160"> | **Nap** |
 | Mouse moves onto Clawd during Do Not Disturb | <img src="assets/mini-sleep-peek.apng" width="160"> | **Who's There** |

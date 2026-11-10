@@ -67,7 +67,7 @@ def mini_idle_svg(vb):
   </g>
 ''')
 
-# ---------- 溜号 · Sneak (mini-crabwalk) ----------
+# ---------- 溜号 · Slip Away (mini-crabwalk) ----------
 # Off to slack, happily: a bouncy trot with a grin, arms swinging and little puffs of dust behind. Runs right;
 # clawd-on-desk mirrors it for the left edge.
 def mini_crabwalk_svg(vb):
@@ -162,7 +162,7 @@ def mini_alert():
         fr.append((frame((p,out),(badge,)),70))
     return fr
 
-# ---------- 偷着乐 · Secret Win (mini-happy) ----------
+# ---------- 亮绿旗 · Green Flag (mini-happy) ----------
 def green_flag(i,top,width):
     """A pole growing out of the raised hand, with `top` as its top row, and a flag unfurling `width` cells off it."""
     p={(0,y):POLE for y in range(top,8)}
