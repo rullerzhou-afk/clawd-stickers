@@ -113,7 +113,7 @@ def mini_enter():
 def mini_peek():
     """Jumps in fright as the window slides out, a drop of sweat flying off, then lands on an awkward smile with a
     hand half raised, the first pose of Say Hi's wave."""
-    fr=[]; N=20
+    fr=[]; N=12   # only a beat on the landing pose, so Say Hi picks up the wave at once
     for i in range(N):
         hop=2.4*math.sin(math.pi*clamp(i/6))
         p=clawd('x',left=UP) if i<9 else clawd('hap',left=MID)

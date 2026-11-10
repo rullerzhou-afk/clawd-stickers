@@ -332,12 +332,12 @@
       "minDisplay": {
         "mini-alert": 3920,
         "mini-happy": 3640,
-        "mini-peek": 1200
+        "mini-peek": 720
       },
       "autoReturn": {
         "mini-alert": 3920,
         "mini-happy": 3640,
-        "mini-peek": 1200
+        "mini-peek": 720
       }
     }
   }
