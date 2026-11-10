@@ -94,13 +94,13 @@ def mini_crabwalk_svg(vb):
 
 # ---------- 躲好 · Hide (mini-enter) ----------
 def mini_enter():
-    """Whooshes behind the wall, stays out of sight for a beat, then creeps out in one unbroken move and grins,
-    ending on the Lookout pose. The whoosh comes first because after a walk from the
+    """Whooshes behind the wall, stays out of sight for a beat, then creeps out in one unbroken move, landing on
+    the Lookout pose. The whoosh comes first because after a walk from the
     menu clawd-on-desk keeps the window off screen for the first 300 ms."""
-    fr=[]; N=46
+    fr=[]; N=29
     for i in range(N):
         sx=kf(i,[(0,0),(3,14),(7,14),(8,8.5),(28,0)])
-        mode='x' if i<3 else 'hap' if 29<=i<43 else 'n'
+        mode='x' if i<3 else 'n'
         fx={}
         if i<4:   # dust left behind by the whoosh
             for k,(x,y) in enumerate([(-1,7),(-2,10),(0,12),(-3,13)]):
