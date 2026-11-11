@@ -212,8 +212,8 @@ clawd-stickers/
     │   ├── clawd-dev-life/    # Theme package
     │   │   ├── assets/        # Light assets
     │   │   └── assets-dark/   # Dark assets
-    │   ├── package/           # LICENSE and README shipped in the theme
     │   ├── previews/          # Catalog thumbnail
+    │   ├── templates/         # Templates of the LICENSE and README shipped in the theme
     │   ├── build.py           # Theme generator and state mapping
     │   ├── animations.py      # Theme-only frame animations
     │   ├── mini.py            # Mini mode animations
@@ -229,7 +229,7 @@ Issues are welcome for sticker ideas and bug reports, as are PRs improving anima
 
 - **Report a problem**: describe the affected sticker or theme and the steps to reproduce it. Include a screenshot or animation where possible. For desktop pet issues, also include your operating system and clawd-on-desk version. Please report issues with the clawd-on-desk application itself, rather than this theme, to the upstream project.
 - **Change stickers**: drawing and animation code lives in [`dev-life/src/clawd_dev.py`](dev-life/src/clawd_dev.py). Keep the existing pixel style and run `python dev-life/build_all.py` to update the GIFs and theme. When adding a sticker, update `ALL`, the `FILE` mapping if needed, and the set guides and home page previews in both languages.
-- **Change the desktop pet theme**: state mappings, theme-specific frame animations, SVG animations and mini mode animations live in `build.py`, `animations.py`, `svg.py` and `mini.py` under `dev-life/theme/`, respectively. Edit the source files, update the animation tables in `package/` when animations or their triggers change, and rebuild the theme.
+- **Change the desktop pet theme**: state mappings, theme-specific frame animations, SVG animations and mini mode animations live in `build.py`, `animations.py`, `svg.py` and `mini.py` under `dev-life/theme/`, respectively. Edit the source files, update the animation tables in `templates/` when animations or their triggers change, and rebuild the theme.
 - **Submit a PR**: describe the changes, include previews where applicable, and submit the source files together with updated assets and relevant documentation. Run `python dev-life/check.py` before submitting. Check transparency, text readability and loop transitions on both light and dark backgrounds. For desktop pet changes, also check the affected states or interactions. Update both English and Chinese documentation when usage or the collection changes.
 
 ## License and usage
