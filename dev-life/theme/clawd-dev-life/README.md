@@ -34,8 +34,7 @@ This theme includes light assets in `assets/` and dark assets in `assets-dark/`.
 
 - Pet tint is turned off.
 - No custom sound effects.
-- In mini mode, clawd-on-desk shows no errors, context compaction, git clone or dizzy, and there are no click reactions: a click leaves mini mode.
-- Tested with clawd-on-desk 1.5.0 on Windows and macOS. Linux is untested. Mini mode is tested on Windows only.
+- Tested with clawd-on-desk 1.6.0 on Windows. MacOS and Linux are untested.
 
 ## Animations
 
