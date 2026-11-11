@@ -30,7 +30,7 @@
 - **成品直接可用**：全部 GIF 均为 288×288 像素、透明背景、循环播放，可以直接下载使用，无需安装开发环境。
 - **浅色、深色背景各一套**：深色版调亮了文字与描边、压暗了地面阴影，适合深色模式聊天界面。
 - **可用代码重新生成**：生成脚本依赖 Pillow，无需额外下载字体文件，支持本地生成全部或指定表情。
-- **已上架 clawd-on-desk 社区主题**：将原版表情包做成了适配 clawd-on-desk 的专门主题，可以在应用中直接下载，也可以从本仓库手动安装。
+- **已上架 clawd-on-desk 社区主题**：将原版表情包做成了 clawd-on-desk 的社区主题，可以在应用中直接下载，也可以从本仓库手动安装。为适配桌宠玩法，加入了一些原版没有的新动画。
 
 ## 表情预览
 
@@ -72,7 +72,7 @@
 
 ## 桌宠主题
 
-这套表情也打包成了 [clawd-on-desk](https://github.com/rullerzhou-afk/clawd-on-desk) 的 **Clawd Dev Life** 桌宠主题。保留了原版表情包的全部动画，跟随 Claude Code 的工作状态同步播放。此外还补充了待机、走动、拖拽等主题专用动画，对部分表情做了适配调整，并加入了用于 2 个会话同时进行 / 3个及以上会话同时进行的专用动画。
+这套表情也打包成了 [clawd-on-desk](https://github.com/rullerzhou-afk/clawd-on-desk) 的 **Clawd Dev Life** 桌宠主题。保留了原版表情包的全部动画，跟随 Claude Code 的工作状态同步播放。此外对部分表情做了适配调整，并补充了一些主题专用动画，以及一套独立的贴边动画。
 
 ### 安装主题
 
@@ -84,7 +84,7 @@
 |---|---|---|
 | 浅色、深色 | [`clawd-dev-life`](dev-life/theme/clawd-dev-life/) | Clawd Dev Life |
 
-clawd-on-desk 默认跟随系统深浅色，也可以在 **设置 → 主题 → 装扮 → 配色** 里手动选择。较旧版本的 clawd-on-desk 只显示浅色。
+clawd-on-desk 新版本默认跟随系统深浅色，也可以在 **设置 → 主题 → 装扮 → 配色** 里手动选择。较旧版本的 clawd-on-desk 只显示浅色。
 
 各系统的主题目录如下：
 
@@ -109,14 +109,13 @@ clawd-on-desk 默认跟随系统深浅色，也可以在 **设置 → 主题 →
 
 - **状态联动**：思考、工作、子代理、上下文压缩、等待授权、任务完成和报错等都有对应动画。
 - **多会话动画**：单会话使用原版表情包，双会话或三个及以上会话使用全新动画，包含多个 Clawd。
-- **桌面互动**：待机时呼吸眨眼、眼睛跟随鼠标，随机播放日常小剧场；支持走动、拖拽、点击、多次点击和绕圈晕眩反应。本主题未采用常见的晕眩动画，而是做了 Usage Limit 动画的改版。
+- **桌面互动**：待机时呼吸眨眼、眼睛跟随鼠标，随机播放日常小剧场；支持走动、拖拽、点击、多次点击和绕圈晕眩反应。
 - **睡眠流程**：从强撑着睁眼到戴睡帽入睡，唤醒动画接上咖啡续命。
-
-- **迷你模式**：不是表情包的缩小版，而是一套独立的剧情。屏幕边缘就是工位隔断，Clawd 开开心心地躲在墙后望风、偷偷干活，鼠标一靠近就被抓包。
+- **迷你模式**：一套独立的动画。Clawd 躲在屏幕边缘望风、干活、戴耳机打盹，鼠标一靠近就被抓包。
 
 没有设计专用音效。
 
-具体动画配置可以在 clawd-on-desk 设置中查看和调整。有不喜欢的动画，都可以手动关闭或替换。
+具体动画配置可以在 clawd-on-desk 设置中查看。
 
 ## 本地生成
 
@@ -138,7 +137,7 @@ python -m pip install -r requirements.txt
 
 ### 一键生成全部内容
 
-以下命令会一次生成全部表情和内含浅色、深色两套资源的主题：
+以下命令会一次生成全部表情和主题：
 
 ```bash
 python dev-life/build_all.py
@@ -176,9 +175,9 @@ python dev-life/src/clawd_dev.py --dark
 python dev-life/theme/build.py
 ```
 
-结果写入 [`dev-life/theme/`](dev-life/theme/) 下的 `clawd-dev-life/`，浅色资源在 `assets/`，深色资源在 `assets-dark/`，会覆盖配置和同名动画资源。`build.py` 里的 `THEME` 表是状态与动画的对应关系，`animations.py` 是与原版表情包不同、主题专用的逐帧动画，`svg.py` 是待机、走动和拖拽动画，`mini.py` 是迷你模式动画。
+结果写入 [`dev-life/theme/`](dev-life/theme/) 下的 `clawd-dev-life/`，浅色在 `assets/`，深色在 `assets-dark/`，会覆盖配置和同名动画资源。`build.py` 里的 `THEME` 表是状态与动画的对应关系，`animations.py` 是与原版表情包不同、主题专用的逐帧动画，`svg.py` 是待机、走动和拖拽动画，`mini.py` 是迷你模式动画。
 
-运行 `python dev-life/theme/preview.py`，会在 [`dev-life/theme/previews/`](dev-life/theme/previews/) 生成 clawd-themes 目录里显示的 300×300 主题缩略图。每次发布新版本主题都需要附上它。
+运行 `python dev-life/theme/preview.py`，会在 [`dev-life/theme/previews/`](dev-life/theme/previews/) 生成 clawd-themes 目录里显示的 300×300 主题缩略图。
 
 ### 检查生成文件
 
@@ -207,7 +206,7 @@ clawd-stickers/
     ├── gif/                   # 40 个成品 GIF
     ├── gif-dark/              # 40 个成品 GIF（深色背景）
     ├── theme/                 # clawd-on-desk 桌宠主题
-    │   ├── clawd-dev-life/    # 内含浅色、深色资源的主题安装包
+    │   ├── clawd-dev-life/    # 主题安装包
     │   │   ├── assets/        # 浅色资源
     │   │   └── assets-dark/   # 深色资源
     │   ├── package/           # 随主题分发的 LICENSE 和 README
@@ -251,3 +250,4 @@ clawd-stickers/
 - 本仓库 [`clawd_dev.py`](dev-life/src/clawd_dev.py) 中的绘图工具函数（如 `base`、`xform`、`squash`、`kf`、`face`、`render` 等）改编自该项目的 `clawd_movies.py` 与 `clawd_movies_more.py`。
 - 感谢 [clawd-on-desk](https://github.com/rullerzhou-afk/clawd-on-desk) 提供桌宠应用与自定义主题支持，让这套表情能以桌面伙伴的形式陪伴开发日常。
 - [Anthropic](https://www.anthropic.com)：Clawd 角色的权利方。
+- 本项目为 [@alwinecor](https://github.com/alwinecor) 与 [Claude Code](https://claude.com/product/claude-code) 共同完成 ❤️
