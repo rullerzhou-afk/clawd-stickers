@@ -5,7 +5,7 @@ English | [简体中文](README.zh-CN.md)
 A [clawd-on-desk](https://github.com/rullerzhou-afk/clawd-on-desk) theme in which Clawd acts out everyday developer life.
 
 - **Author**: alwinecor
-- **Version**: 1.1.0
+- **Version**: 1.2.0
 - **Theme ID**: `clawd-dev-life`
 - **Source**: <https://github.com/alwinecor/clawd-stickers>
 

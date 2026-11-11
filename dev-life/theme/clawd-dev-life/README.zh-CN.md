@@ -5,7 +5,7 @@
 [clawd-on-desk](https://github.com/rullerzhou-afk/clawd-on-desk) 主题：让 Clawd 演出开发者的日常。
 
 - **作者**：alwinecor
-- **版本**：1.1.0
+- **版本**：1.2.0
 - **主题 ID**：`clawd-dev-life`
 - **源仓库**：<https://github.com/alwinecor/clawd-stickers>
 
