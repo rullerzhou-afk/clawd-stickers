@@ -28,17 +28,17 @@
 - 全部 agent 状态，包括思考、工作、子代理、压缩上下文、报错和完整入睡流程等
 - 2 个会话与 3 个及以上会话的专用动画，含多只 Clawd
 - 待机时眼睛跟随、随机待机动画、走动、拖拽和点击反应
+- 迷你模式：一套独立的动画，Clawd 躲在工位墙后，即屏幕边缘
 
 ## 已知限制
 
-- 不支持迷你模式。
 - 已关闭桌宠染色。
 - 无专属音效。
-- 已在 Windows 和 macOS 上的 clawd-on-desk 1.5.0 测试，Linux 尚未测试。
+- 已在 Windows 的 clawd-on-desk 1.6.0 测试，macOS 和 Linux 尚未测试。
 
 ## 全部动画
 
-本主题共 47 个动画。同一时机列出多个动画时，会播放其中一个。大部分动画来自[克码人生表情包](https://github.com/alwinecor/clawd-stickers/blob/main/dev-life/README.zh-CN.md)，具体内容说明请见那里。
+本主题共 58 个动画。同一时机列出多个动画时，会播放其中一个。大部分动画来自[克码人生表情包](https://github.com/alwinecor/clawd-stickers/blob/main/dev-life/README.zh-CN.md)，具体内容说明请见那里；迷你模式的 11 个动画是本主题专有的。
 
 ### 工作
 
@@ -106,6 +106,24 @@
 | 入睡 | <img src="assets/yawn.apng" width="96"> | **打哈欠**<br>Yawn |
 | 睡着 | <img src="assets/sleep.apng" width="96"> | **晚安**<br>Good Night |
 | 醒来 | <img src="assets/wake.apng" width="96"> | **醒来**<br>Wake |
+
+### 迷你模式
+
+把 Clawd 拖到屏幕左右边缘，或从菜单进入。躲好、戴耳机和偷看播放一次后会停在最后一帧，所以下方预览也只播一次。
+
+| 触发时机 | 预览 | 动画 |
+| --- | --- | --- |
+| 走向屏幕边缘 | <img src="assets/mini-crabwalk.svg" width="160"> | **溜号**<br>Slip Away |
+| 进入迷你模式 | <img src="assets/mini-enter.apng" width="160"> | **躲好**<br>Hide |
+| 平时 | <img src="assets/mini-idle.svg" width="160"> | **望风**<br>Lookout |
+| 鼠标移上来 | <img src="assets/mini-peek.apng" width="160"> | **被抓包**<br>Caught |
+| 鼠标停留 | <img src="assets/mini-peek-hold.apng" width="160"> | **打招呼**<br>Say Hi |
+| 思考、使用工具、子代理运行中 | <img src="assets/mini-working.apng" width="160"> | **偷偷干活**<br>Working in Secret |
+| 权限请求或提醒 | <img src="assets/mini-alert.apng" width="160"> | **有人找**<br>Someone's Asking |
+| 任务完成 | <img src="assets/mini-happy.apng" width="160"> | **亮绿旗**<br>Green Flag |
+| 免打扰时进入 | <img src="assets/mini-enter-sleep.apng" width="160"> | **戴耳机**<br>Headphones On |
+| 免打扰 | <img src="assets/mini-sleep.apng" width="160"> | **午休**<br>Nap |
+| 免打扰时鼠标移上来 | <img src="assets/mini-sleep-peek.apng" width="160"> | **偷看**<br>Who's There |
 
 ## 许可
 

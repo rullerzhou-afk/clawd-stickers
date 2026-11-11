@@ -5,7 +5,7 @@ English | [简体中文](README.zh-CN.md)
 A [clawd-on-desk](https://github.com/rullerzhou-afk/clawd-on-desk) theme in which Clawd acts out everyday developer life.
 
 - **Author**: alwinecor
-- **Version**: 1.1.0
+- **Version**: 1.2.0
 - **Theme ID**: `clawd-dev-life`
 - **Source**: <https://github.com/alwinecor/clawd-stickers>
 
@@ -28,17 +28,17 @@ This theme includes light assets in `assets/` and dark assets in `assets-dark/`.
 - Every agent state, including thinking, working, subagents, context compaction, errors, the full sleep sequence and more
 - Separate animations for two and for three or more active sessions, with several Clawds on screen
 - Eye tracking while idle, random idle animations, roaming, dragging and click reactions
+- Mini mode with its own story: Clawd hides behind a cubicle wall, which is the edge of your screen
 
 ## Known limitations
 
-- Mini mode is not supported.
 - Pet tint is turned off.
 - No custom sound effects.
-- Tested with clawd-on-desk 1.5.0 on Windows and macOS. Linux is untested.
+- Tested with clawd-on-desk 1.6.0 on Windows. MacOS and Linux are untested.
 
 ## Animations
 
-The theme has 47 animations. Where a moment lists several, one of them plays. Most come from the [Dev Life stickers](https://github.com/alwinecor/clawd-stickers/blob/main/dev-life/README.md), where you can read more about each one.
+The theme has 58 animations. Where a moment lists several, one of them plays. Most come from the [Dev Life stickers](https://github.com/alwinecor/clawd-stickers/blob/main/dev-life/README.md), where you can read more about each one. The 11 mini mode animations exist only in this theme.
 
 ### Working
 
@@ -106,6 +106,24 @@ The theme has 47 animations. Where a moment lists several, one of them plays. Mo
 | Falling asleep | <img src="assets/yawn.apng" width="96"> | **Yawn** |
 | Asleep | <img src="assets/sleep.apng" width="96"> | **Good Night** |
 | Waking up | <img src="assets/wake.apng" width="96"> | **Wake** |
+
+### Mini mode
+
+Drag Clawd to the left or right screen edge, or enter from the menu. Hide, Headphones On and Who's There play once and stay on their last frame, so their previews below also play only once.
+
+| When | Preview | Animation |
+| --- | --- | --- |
+| Walking to the screen edge | <img src="assets/mini-crabwalk.svg" width="160"> | **Slip Away** |
+| Entering mini mode | <img src="assets/mini-enter.apng" width="160"> | **Hide** |
+| No activity | <img src="assets/mini-idle.svg" width="160"> | **Lookout** |
+| Mouse moves onto Clawd | <img src="assets/mini-peek.apng" width="160"> | **Caught** |
+| Mouse stays | <img src="assets/mini-peek-hold.apng" width="160"> | **Say Hi** |
+| Thinking, using tools or running subagents | <img src="assets/mini-working.apng" width="160"> | **Working in Secret** |
+| Permission request or alert | <img src="assets/mini-alert.apng" width="160"> | **Someone's Asking** |
+| Task completed | <img src="assets/mini-happy.apng" width="160"> | **Green Flag** |
+| Entering with Do Not Disturb on | <img src="assets/mini-enter-sleep.apng" width="160"> | **Headphones On** |
+| Do Not Disturb | <img src="assets/mini-sleep.apng" width="160"> | **Nap** |
+| Mouse moves onto Clawd during Do Not Disturb | <img src="assets/mini-sleep-peek.apng" width="160"> | **Who's There** |
 
 ## License
 
