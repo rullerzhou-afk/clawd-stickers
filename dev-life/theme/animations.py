@@ -142,3 +142,5 @@ def team2():
     return [(comp(*coder(i),*tester(i)),60) for i in range(72)]
 def team3():
     return [(comp(*coder(i),*tester(i),*lookout(i)),60) for i in range(72)]
+
+ANIMATIONS={f.__name__:f for f in (banned_long,bye_long,detached_long,dizzy,passed_long,team2,team3,wake,yawn)}

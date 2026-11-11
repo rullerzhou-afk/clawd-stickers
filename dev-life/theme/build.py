@@ -8,31 +8,30 @@ plus the theme-only animations in animations.py and svg.py.
 
 https://github.com/rullerzhou-afk/clawd-on-desk/blob/main/docs/guides/guide-theme-creation.md
 """
-import argparse, json, os, sys
+import json, os, sys
 THEME_DIR=os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0,os.path.join(THEME_DIR,'..','src'))
 from clawd_dev import *
-from animations import banned_long, bye_long, detached_long, dizzy, passed_long, team2, team3, wake, yawn
-from mini import MINI_FRAMES, MINI_OFFSET, MINI_ONCE, MINI_PEEK, MINI_PLAY_ONCE, MINI_SVGS, MINI_VIEWBOX
+from animations import ANIMATIONS
+from mini import MINI_FRAMES, MINI_OFFSET, MINI_PEEK, MINI_STOPS, MINI_SVGS, MINI_TIMED, MINI_VIEWBOX
 from svg import SVGS
 
+WORKING=['todo','simple','bug','loop','deadline']
 # viewBox is in body cells, the same grid as the built-in Clawd theme (body x 0..15, feet at y=15).
 THEME={
- 'states':{'idle':['idle'],'thinking':['thinking','ultrathink','plan'],'working':['todo','simple','bug','loop','deadline'],
+ 'states':{'idle':['idle'],'thinking':['thinking','ultrathink','plan'],'working':WORKING,
            'juggling':['subagents'],'sweeping':['compact'],'carrying':['clone'],'notification':['proceed'],
            'attention':['passed_long','lgtm'],'error':['error'],'sleeping':['sleep'],'roam':['roam'],
            'dizzy':['dizzy'],
            'yawning':['yawn'],'dozing':['sleep'],'collapsing':['sleep'],'waking':['wake']},
- 'workingTiers':[(3,['team3']),(2,['team2','conflict']),(1,['todo','simple','bug','loop','deadline'])],
+ 'workingTiers':[(3,['team3']),(2,['team2','conflict']),(1,WORKING)],
  'idleAnimations':['fish','coffee','duck','works','blame','deploy','overtime','offwork','leak','overflow','cherry',
                    'esc','forcepush','stash','clear','bye_long'],
  'hitBoxes':{'conflict':{'x':-4,'y':5,'w':23,'h':11},'team2':{'x':-3,'y':2,'w':21,'h':14},'team3':{'x':-3,'y':-4,'w':21,'h':20}},   # wider than one Clawd
  'reactions':{'drag':'drag','clickLeft':'hello','clickRight':'right','annoyed':'notfound','double':['rmrf','detached_long','banned_long']},
 }
 ONESHOT=['attention','error','notification','carrying','dizzy']   # hold until the animation has played once
-MINI_ONESHOT=['mini-alert','mini-happy','mini-peek']   # hold until played once; the entries report their own length
 HOLD=300   # ms of extra stillness on the last frame of an animation played once for a fixed time
-ANIMATIONS={f.__name__:f for f in (banned_long,bye_long,detached_long,dizzy,passed_long,team2,team3,wake,yawn)}
 def to_apng(frames,path,plays=0):
     frames[0][0].save(path,format='PNG',save_all=True,append_images=[im for im,_ in frames[1:]],
                       duration=[d for _,d in frames],loop=plays,disposal=0,blend=0)
@@ -50,12 +49,12 @@ def theme():
     # shares one duration, so its shorter members hold their last frame until the longest one ends.
     once=set(THEME['idleAnimations'])|{n for s in ONESHOT+['yawning','waking'] for n in st[s]}
     once|={n for k,v in THEME['reactions'].items() if k!='drag' for n in ([v] if isinstance(v,str) else v)}
-    once|=MINI_ONCE
+    once|={*MINI_TIMED,*MINI_STOPS}
     pools=[v for v in THEME['reactions'].values() if not isinstance(v,str)]+[st[s] for s in ONESHOT if len(st[s])>1]
     durations={}; f=lambda n:n+('.svg' if n in SVGS or n in MINI_SVGS else '.apng')
     def write(nm,fr,pad=0):
         if nm in once: fr[-1]=(fr[-1][0],fr[-1][1]+pad+HOLD)
-        n=to_apng(fr,os.path.join(ad,f(nm)),1 if nm in MINI_PLAY_ONCE else 0)
+        n=to_apng(fr,os.path.join(ad,f(nm)),1 if nm in MINI_STOPS else 0)
         print(f'{nm}: {len(fr)} frames, {ms[nm]}ms'+(f' (+{pad}ms hold)' if pad else '')+f', {n//1024}KB')
     for dark in (False,True):
         set_dark(dark)
@@ -76,8 +75,6 @@ def theme():
         for p in pools:
             T=max(ms[n] for n in p)
             for n in p: pad=T-ms[n]; ms[n]=T; write(n,pending[n],pad)
-        if not dark: light_ms=ms
-    ms=light_ms
     cfg={
      'schemaVersion':1,
      'name':'Clawd Dev Life',
@@ -115,7 +112,7 @@ def theme():
      'fileHitBoxes':{f(n):b for n,b in THEME['hitBoxes'].items()},
      'miniMode':{'supported':True,'offsetRatio':MINI_OFFSET,'peek':{'offsetRatio':MINI_PEEK},'viewBox':MINI_VIEWBOX,
                  'states':{n:[f(n)] for n in (*MINI_SVGS,*MINI_FRAMES)},
-                 'timings':{'minDisplay':{s:ms[s] for s in MINI_ONESHOT},'autoReturn':{s:ms[s] for s in MINI_ONESHOT}}},
+                 'timings':{'minDisplay':{s:ms[s] for s in MINI_TIMED},'autoReturn':{s:ms[s] for s in MINI_TIMED}}},
     }
     with open(os.path.join(out,'theme.json'),'w',encoding='utf-8') as fp:
         json.dump(cfg,fp,ensure_ascii=False,indent=2); fp.write('\n')
@@ -127,5 +124,4 @@ def theme():
     print(f'theme -> {os.path.normpath(out)}')
 
 if __name__=='__main__':
-    ap=argparse.ArgumentParser(description='Build a clawd-on-desk theme.')
-    ap.parse_args(); theme()
+    theme()

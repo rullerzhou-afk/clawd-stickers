@@ -11,7 +11,6 @@ It uses the light colours, like the catalog card of a theme with dark assets.
 import os, sys
 THEME_DIR=os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0,os.path.join(THEME_DIR,'..','src'))
-import clawd_dev
 from clawd_dev import *
 ORG='#E8845F'; STEAM='#D8D2CA'; SIZE=300
 

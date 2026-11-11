@@ -224,10 +224,16 @@ def mini_sleep_peek():
     return fr
 
 MINI_SVGS={'mini-idle':mini_idle_svg,'mini-crabwalk':mini_crabwalk_svg}
-MINI_ONCE={'mini-enter','mini-enter-sleep','mini-peek','mini-alert','mini-happy','mini-sleep-peek'}   # played once for a fixed time, like the full theme's
-# The rest loop like the full theme's and their timers end before the hold. The file itself must stop on its last
-# frame where no timer does that: an entry ends after the whole file, hold included, and Who's There lasts while the
-# mouse stays.
-MINI_PLAY_ONCE={'mini-enter','mini-enter-sleep','mini-sleep-peek'}
-MINI_FRAMES={'mini-enter':mini_enter,'mini-enter-sleep':mini_enter_sleep,'mini-peek':mini_peek,'mini-peek-hold':mini_peek_hold,
-             'mini-working':mini_working,'mini-alert':mini_alert,'mini-happy':mini_happy,'mini-sleep':mini_sleep,'mini-sleep-peek':mini_sleep_peek}
+# How each drawn state ends. LOOP plays for as long as the state lasts. The other two are played once for a fixed
+# time, like the full theme's, and get the hold on their last frame:
+#   TIMED  the file loops like the full theme's and a timer ends it before the hold; the state reports its own
+#          length in the theme's timings.
+#   STOPS  no timer does that, so the file itself stops on its last frame: an entry ends after the whole file,
+#          hold included, and Who's There lasts while the mouse stays.
+LOOP,TIMED,STOPS='loop','timed','stops'
+MINI={'mini-enter':(mini_enter,STOPS),'mini-enter-sleep':(mini_enter_sleep,STOPS),'mini-peek':(mini_peek,TIMED),
+      'mini-peek-hold':(mini_peek_hold,LOOP),'mini-working':(mini_working,LOOP),'mini-alert':(mini_alert,TIMED),
+      'mini-happy':(mini_happy,TIMED),'mini-sleep':(mini_sleep,LOOP),'mini-sleep-peek':(mini_sleep_peek,STOPS)}
+MINI_FRAMES={n:fn for n,(fn,_) in MINI.items()}
+MINI_TIMED=[n for n,(_,k) in MINI.items() if k==TIMED]
+MINI_STOPS=[n for n,(_,k) in MINI.items() if k==STOPS]

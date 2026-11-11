@@ -330,14 +330,14 @@
     },
     "timings": {
       "minDisplay": {
+        "mini-peek": 720,
         "mini-alert": 3920,
-        "mini-happy": 3640,
-        "mini-peek": 720
+        "mini-happy": 3640
       },
       "autoReturn": {
+        "mini-peek": 720,
         "mini-alert": 3920,
-        "mini-happy": 3640,
-        "mini-peek": 720
+        "mini-happy": 3640
       }
     }
   }
