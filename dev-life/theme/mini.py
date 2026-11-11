@@ -224,6 +224,10 @@ def mini_sleep_peek():
     return fr
 
 MINI_SVGS={'mini-idle':mini_idle_svg,'mini-crabwalk':mini_crabwalk_svg}
-MINI_ONCE={'mini-enter','mini-enter-sleep','mini-peek','mini-alert','mini-happy','mini-sleep-peek'}   # play once, then rest on the last frame
+MINI_ONCE={'mini-enter','mini-enter-sleep','mini-peek','mini-alert','mini-happy','mini-sleep-peek'}   # played once for a fixed time, like the full theme's
+# The rest loop like the full theme's and their timers end before the hold. The file itself must stop on its last
+# frame where no timer does that: an entry ends after the whole file, hold included, and Who's There lasts while the
+# mouse stays.
+MINI_PLAY_ONCE={'mini-enter','mini-enter-sleep','mini-sleep-peek'}
 MINI_FRAMES={'mini-enter':mini_enter,'mini-enter-sleep':mini_enter_sleep,'mini-peek':mini_peek,'mini-peek-hold':mini_peek_hold,
              'mini-working':mini_working,'mini-alert':mini_alert,'mini-happy':mini_happy,'mini-sleep':mini_sleep,'mini-sleep-peek':mini_sleep_peek}

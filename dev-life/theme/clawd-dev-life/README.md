@@ -109,7 +109,7 @@ The theme has 58 animations. Where a moment lists several, one of them plays. Mo
 
 ### Mini mode
 
-Drag Clawd to the left or right screen edge, or enter from the menu.
+Drag Clawd to the left or right screen edge, or enter from the menu. Hide, Headphones On and Who's There play once and stay on their last frame, so their previews below also play only once.
 
 | When | Preview | Animation |
 | --- | --- | --- |

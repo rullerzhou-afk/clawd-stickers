@@ -13,7 +13,7 @@ THEME_DIR=os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0,os.path.join(THEME_DIR,'..','src'))
 from clawd_dev import *
 from animations import banned_long, bye_long, detached_long, dizzy, passed_long, team2, team3, wake, yawn
-from mini import MINI_FRAMES, MINI_OFFSET, MINI_ONCE, MINI_PEEK, MINI_SVGS, MINI_VIEWBOX
+from mini import MINI_FRAMES, MINI_OFFSET, MINI_ONCE, MINI_PEEK, MINI_PLAY_ONCE, MINI_SVGS, MINI_VIEWBOX
 from svg import SVGS
 
 # viewBox is in body cells, the same grid as the built-in Clawd theme (body x 0..15, feet at y=15).
@@ -55,7 +55,7 @@ def theme():
     durations={}; f=lambda n:n+('.svg' if n in SVGS or n in MINI_SVGS else '.apng')
     def write(nm,fr,pad=0):
         if nm in once: fr[-1]=(fr[-1][0],fr[-1][1]+pad+HOLD)
-        n=to_apng(fr,os.path.join(ad,f(nm)),1 if nm in MINI_ONCE else 0)
+        n=to_apng(fr,os.path.join(ad,f(nm)),1 if nm in MINI_PLAY_ONCE else 0)
         print(f'{nm}: {len(fr)} frames, {ms[nm]}ms'+(f' (+{pad}ms hold)' if pad else '')+f', {n//1024}KB')
     for dark in (False,True):
         set_dark(dark)
