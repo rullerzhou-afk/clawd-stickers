@@ -34,7 +34,7 @@ This theme includes light assets in `assets/` and dark assets in `assets-dark/`.
 
 - Pet tint is turned off.
 - No custom sound effects.
-- Tested with clawd-on-desk 1.6.0 on Windows. MacOS and Linux are untested.
+- Tested with clawd-on-desk 1.6.0 on Windows. macOS and Linux are untested.
 
 ## Animations
 
