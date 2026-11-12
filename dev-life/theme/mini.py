@@ -167,7 +167,7 @@ def green_flag(i,top,width):
     """A pole growing out of the raised hand, with `top` as its top row, and a flag unfurling `width` cells off it."""
     p={(0,y):POLE for y in range(top,8)}
     for x in range(-width,0):
-        sway=round(math.sin(TAU*(i/10+x/9)))
+        sway=round(math.sin(TAU*(i/10+x/6)))
         for y in range(top,top+5):
             p[(x,y+sway)]=FLAG_HI if y==top+1 and x%2 else FLAG
     return p
@@ -176,7 +176,7 @@ def mini_happy():
     fr=[]; N=52
     for i in range(N):
         top=round(kf(i,[(1,8),(5,-1),(46,-1),(50,8)]))
-        width=round(kf(i,[(4,0),(9,9),(42,9),(47,0)]))
+        width=round(kf(i,[(4,0),(9,6),(42,6),(47,0)]))   # 6 cells: leaning out 3, the flag ends at -9, inside the window
         hop=abs(math.sin(TAU*i/14))*1.2 if 8<=i<42 else 0
         out=kf(i,[(0,0),(4,-3),(46,-3),(51,0)])
         fr.append((frame((green_flag(i,top,width),out,-hop),(clawd('hap' if 4<=i<48 else 'n',left=UP if 2<=i<49 else DOWN),out,-hop)),70))
